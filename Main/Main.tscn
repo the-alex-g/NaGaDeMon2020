@@ -1,5 +1,20 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Main/PlayerInitiator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main/Main.gd" type="Script" id=2]
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="PlayerPickers" type="Node2D" parent="."]
+
+[node name="PlayerInitiator1" parent="PlayerPickers" instance=ExtResource( 1 )]
+position = Vector2( 433.011, 229.241 )
+
+[node name="PlayerInitiator2" parent="PlayerPickers" instance=ExtResource( 1 )]
+position = Vector2( 480.633, 230.828 )
+player_id = "2"
+[connection signal="nope" from="." to="PlayerPickers/PlayerInitiator2" method="_on_Main_nope"]
+[connection signal="nope" from="." to="PlayerPickers/PlayerInitiator1" method="_on_Main_nope"]
+[connection signal="chosen_color" from="PlayerPickers/PlayerInitiator1" to="." method="_on_PlayerInitiator_chosen_color"]
+[connection signal="chosen_color" from="PlayerPickers/PlayerInitiator2" to="." method="_on_PlayerInitiator_chosen_color"]
