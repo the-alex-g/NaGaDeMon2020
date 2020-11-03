@@ -25,7 +25,10 @@ func _process(_delta):
 		emit_signal("color_taken_back", _player_color_choice, player_id)
 	_sprite.play(_player_color_choice)
 
-func _on_Main_color_chosen(color):
+func _on_Main_color_chosen(color, id):
+	if color == _player_color_choice and player_id != id:
+		_player_color_choice_id += 1
+		_player_color_choice = player_colors[_player_color_choice_id%(player_colors.size())]
 	for acolor in player_colors.size():
 		if player_colors[acolor] == color:
 			player_colors.remove(acolor)
