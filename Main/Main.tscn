@@ -14,7 +14,12 @@ position = Vector2( 433.011, 229.241 )
 [node name="PlayerInitiator2" parent="PlayerPickers" instance=ExtResource( 1 )]
 position = Vector2( 480.633, 230.828 )
 player_id = "2"
-[connection signal="nope" from="." to="PlayerPickers/PlayerInitiator2" method="_on_Main_nope"]
-[connection signal="nope" from="." to="PlayerPickers/PlayerInitiator1" method="_on_Main_nope"]
+_player_color_choice = "yellow"
+[connection signal="color_chosen" from="." to="PlayerPickers/PlayerInitiator2" method="_on_Main_color_chosen"]
+[connection signal="color_chosen" from="." to="PlayerPickers/PlayerInitiator1" method="_on_Main_color_chosen"]
+[connection signal="color_taken_back" from="." to="PlayerPickers/PlayerInitiator2" method="_on_Main_color_taken_back"]
+[connection signal="color_taken_back" from="." to="PlayerPickers/PlayerInitiator1" method="_on_Main_color_taken_back"]
 [connection signal="chosen_color" from="PlayerPickers/PlayerInitiator1" to="." method="_on_PlayerInitiator_chosen_color"]
+[connection signal="color_taken_back" from="PlayerPickers/PlayerInitiator1" to="." method="_on_PlayerInitiator_color_taken_back"]
 [connection signal="chosen_color" from="PlayerPickers/PlayerInitiator2" to="." method="_on_PlayerInitiator_chosen_color"]
+[connection signal="color_taken_back" from="PlayerPickers/PlayerInitiator2" to="." method="_on_PlayerInitiator_color_taken_back"]
