@@ -19,7 +19,7 @@ func _process(_delta):
 		if Input.is_action_just_pressed("start_game"):
 			_main_menu.hide()
 			emit_signal("game_started")
-			for x in 2:
+			for x in _player_count:
 				var Player := player.instance()
 				Player.player_number = x+1
 				Player.player_color = get("_player"+str(x+1)+"_color")
