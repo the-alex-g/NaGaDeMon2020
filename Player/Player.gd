@@ -1,3 +1,4 @@
+class_name Player
 extends KinematicBody2D
 
 export var minswingspeed := 0.2
@@ -10,6 +11,9 @@ onready var _sword := $Sword
 var player_color:String = "red"
 var player_number:String = "1"
 var _swingspeed := 0.0
+var maxhealth := 3.0
+var health := 3.0
+var _damage := 3
 var swingdir := 1
 var swinging := false
 var _light_colors := {"red":Color.red, "yellow":Color.yellow, "blue":Color(0,0.5,1,1), "green":Color.green}
@@ -50,6 +54,14 @@ func _physics_process(delta):
 	_sword.rotation_degrees += _swingspeed*swingdir
 	var _error = move_and_collide(velocity.normalized()*delta*speed)
 	_sprite.rotation_degrees += 1
+	_light.energy = health/maxhealth
+
+func ow(damage):
+	health -= damage
+	if health <= 0:
+		health = 0
+		queue_free()
 
 func _on_Area2D_body_entered(body):
-	pass # Replace with function body.
+	if body.has_method("hit"):
+		body.hit(_damage)
