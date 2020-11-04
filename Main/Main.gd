@@ -30,7 +30,7 @@ func _ready():
 	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
 
 func _process(_delta):
-	if _player1_color != "" and _player2_color != "" and _player_count > 0:
+	if _player1_color != "" and _player2_color != "" and _player_count > 0 and _level == 0:
 		if Input.is_action_just_pressed("start_game"):
 			_main_menu.hide()
 			emit_signal("game_started")
@@ -41,6 +41,7 @@ func _process(_delta):
 				_Player.position = _playerpositions.get_node("Position1_"+str(x+1)).get_global_transform().origin
 				_players.add_child(_Player)
 			_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
+			_level = 1
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
 		_add_player_selector(1)
 		_player_count += 1

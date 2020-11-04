@@ -5,10 +5,10 @@
 [ext_resource path="res://Enemies/Enemy_Spawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Main/LevelDoor.tscn" type="PackedScene" id=4]
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
-[sub_resource type="TileSet" id=1]
+[sub_resource type="TileSet" id=2]
 2/name = "Tiles.png 2"
 2/texture = ExtResource( 1 )
 2/tex_offset = Vector2( 0, 0 )
@@ -33,14 +33,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 7/navigation_offset = Vector2( 0, 0 )
 7/shape_offset = Vector2( 0, 0 )
 7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-7/shape = SubResource( 2 )
+7/shape = SubResource( 1 )
 7/shape_one_way = false
 7/shape_one_way_margin = 1.0
 7/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 1 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 7/z_index = 0
@@ -152,7 +152,7 @@ portal_number = 2
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -2
-tile_set = SubResource( 1 )
+tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
