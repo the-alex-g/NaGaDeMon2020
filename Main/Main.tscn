@@ -126,12 +126,29 @@ position = Vector2( 2592, 320 )
 [node name="Spawner" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 1536, 304 )
 
+[node name="Spawner2" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
+position = Vector2( 2272, 128 )
+
+[node name="Spawner3" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
+position = Vector2( 2848, 128 )
+
 [node name="Enemies" type="Node2D" parent="Gameplay"]
 
 [node name="Portals" type="Node2D" parent="Gameplay"]
 
 [node name="Portal" parent="Gameplay/Portals" instance=ExtResource( 4 )]
 position = Vector2( 1984, 288 )
+
+[node name="Portal2" parent="Gameplay/Portals" instance=ExtResource( 4 )]
+position = Vector2( 2112, 512 )
+location = 2
+destination = 3
+
+[node name="Portal3" parent="Gameplay/Portals" instance=ExtResource( 4 )]
+position = Vector2( 2976, 512 )
+location = 2
+destination = 3
+portal_number = 2
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -2
@@ -147,4 +164,10 @@ position = Vector2( 512, 304 )
 current = true
 [connection signal="create_enemy" from="Gameplay/Spawners/Spawner" to="." method="_create_enemy"]
 [connection signal="spawner_cleared" from="Gameplay/Spawners/Spawner" to="." method="_L1_spawner_cleared"]
+[connection signal="create_enemy" from="Gameplay/Spawners/Spawner2" to="." method="_create_enemy"]
+[connection signal="spawner_cleared" from="Gameplay/Spawners/Spawner2" to="." method="_L2_spawner_cleared"]
+[connection signal="create_enemy" from="Gameplay/Spawners/Spawner3" to="." method="_create_enemy"]
+[connection signal="spawner_cleared" from="Gameplay/Spawners/Spawner3" to="." method="_L2_spawner_cleared"]
 [connection signal="entered" from="Gameplay/Portals/Portal" to="." method="_on_Portal_entered"]
+[connection signal="entered" from="Gameplay/Portals/Portal2" to="." method="_on_Portal_entered"]
+[connection signal="entered" from="Gameplay/Portals/Portal3" to="." method="_on_Portal_entered"]

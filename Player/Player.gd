@@ -56,6 +56,8 @@ func _physics_process(delta):
 		var _error = move_and_collide(velocity.normalized()*delta*speed)
 		_sprite.rotation_degrees += 1
 		_light.energy = health/maxhealth
+		if health <= 0:
+			_light.energy = 0
 
 func ow(damage):
 	health -= damage

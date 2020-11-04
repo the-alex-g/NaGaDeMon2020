@@ -15,7 +15,7 @@ var _player3_color:String = "not"
 var _player4_color:String = "not"
 var _level := 0
 var L1_exit_limit := 1
-var L2_exit_limit := 1
+var L2_exit_limit := 2
 var L3_exit_limit := 1
 var L4_exit_limit := 1
 var L5_exit_limit := 1
@@ -103,3 +103,6 @@ func go_to_next_level(level):
 		player.position = _playerpositions.get_node("Position"+str(_level)+"_"+player.player_number).get_global_transform().origin
 		player.health = player.maxhealth
 	_camera.position = _camerapositions.get_node("Position"+str(_level+1)).get_global_transform().origin
+
+func _L2_spawner_cleared():
+	L2_exit_limit -= 1
