@@ -24,7 +24,6 @@ func _process(_delta):
 				Player.player_number = x+1
 				Player.player_color = get("_player"+str(x+1)+"_color")
 				_players.add_child(Player)
-				print("SPAWNED ONE")
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
 		_add_player_selector(1)
 		_player_count += 1
