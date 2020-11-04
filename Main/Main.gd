@@ -14,6 +14,14 @@ var _player2_color:String = "not"
 var _player3_color:String = "not"
 var _player4_color:String = "not"
 var _level := 0
+var L1_exit_limit := 1
+var L2_exit_limit := 1
+var L3_exit_limit := 1
+var L4_exit_limit := 1
+var L5_exit_limit := 1
+var L6_exit_limit := 1
+var L7_exit_limit := 1
+var L8_exit_limit := 1
 signal color_chosen(color, id)
 signal color_taken_back(color)
 signal game_started
@@ -79,6 +87,19 @@ func _color_taken_back(color, id):
 	_set_player_color("", id)
 	emit_signal("color_taken_back", color)
 
-
 func _create_enemy(enemy):
 	$Gameplay/Enemies.add_child(enemy)
+
+func _L1_spawner_cleared():
+	L1_exit_limit -= 1
+
+func _on_Portal_entered(destination, location):
+	if get("L"+str(location)+"_exit_limit") == 0:
+		go_to_next_level(destination)
+
+func go_to_next_level(level):
+	_level = level
+	for player in _players.get_children():
+		player.position = _playerpositions.get_node("Position"+str(_level)+"_"+player.player_number).get_global_transform().origin
+		player.health = player.maxhealth
+	_camera.position = _camerapositions.get_node("Position"+str(_level+1)).get_global_transform().origin

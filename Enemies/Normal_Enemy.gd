@@ -27,6 +27,11 @@ func _process(delta):
 		var direction = destination - get_global_transform().origin
 		var velocity = direction.normalized() * speed
 		var _error = move_and_collide(velocity*delta)
+		for body in _sight.get_overlapping_bodies():
+			if body is Player:
+				if body.health > 0:
+					if abs((body.get_global_transform().origin - get_global_transform().origin).length_squared()) < abs((_target.get_global_transform().origin-get_global_transform().origin).length_squared()) or _target == null:
+						_target = body
 		if _target.health == 0:
 			_target = null
 			should_move = false
@@ -50,11 +55,6 @@ func hit(damage):
 		emit_signal("died")
 		queue_free()
 
-func _on_Sightrange_body_entered(body):
-	if body is Player:
-		_target = body
-		should_move = true
-
 func _on_Area2D_body_entered(body):
 	if body is Player:
 		body.ow(_damage)
@@ -72,3 +72,8 @@ func _new_sword_dir():
 
 func _on_Timer_timeout():
 	_new_sword_dir()
+
+func _on_Sightrange_body_entered(body):
+	if body is Player:
+		should_move = true
+		_target = body
