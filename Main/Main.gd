@@ -5,14 +5,21 @@ const selector := preload("res://Main/PlayerInitiator.tscn")
 onready var _main_menu := $MainMenu
 onready var _players := $Gameplay/Players
 onready var _selectors := $MainMenu/PlayerPickers
+onready var _playerpositions := $Gameplay/Positions/Playerpositions
+onready var _camerapositions := $Gameplay/Positions/Camerapostions
+onready var _camera := $Camera2D
 var _player_count := 0
 var _player1_color:String = "not"
 var _player2_color:String = "not"
 var _player3_color:String = "not"
 var _player4_color:String = "not"
+var _level := 0
 signal color_chosen(color, id)
 signal color_taken_back(color)
 signal game_started
+
+func _ready():
+	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
 
 func _process(_delta):
 	if _player1_color != "" and _player2_color != "" and _player_count > 0:
@@ -20,10 +27,12 @@ func _process(_delta):
 			_main_menu.hide()
 			emit_signal("game_started")
 			for x in _player_count:
-				var Player := player.instance()
-				Player.player_number = x+1
-				Player.player_color = get("_player"+str(x+1)+"_color")
-				_players.add_child(Player)
+				var _Player := player.instance()
+				_Player.player_number = x+1
+				_Player.player_color = get("_player"+str(x+1)+"_color")
+				_Player.position = _playerpositions.get_node("Position1_"+str(x+1)).get_global_transform().origin
+				_players.add_child(_Player)
+			_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
 		_add_player_selector(1)
 		_player_count += 1
@@ -69,3 +78,7 @@ func _set_player_color(set_to, id):
 func _color_taken_back(color, id):
 	_set_player_color("", id)
 	emit_signal("color_taken_back", color)
+
+
+func _create_enemy(enemy):
+	$Gameplay/Enemies.add_child(enemy)
