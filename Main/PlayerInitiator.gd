@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var _sprite := $Sprite
+onready var _button := $Button
 export var player_id := "1"
 var player_colors := ["red", "yellow", "blue","green"]
 var player_color_choice_id := 0
@@ -22,10 +23,10 @@ func _process(_delta):
 			emit_signal("chosen_color", player_color_choice, player_id)
 			_done = true
 			_add_to_anim = "_go"
-		$Buttons.play("A")
+		_button.type = "A2"
 		$Label2.text = "Select"
 	elif _done:
-		$Buttons.play("B")
+		_button.type = "B3"
 		$Label2.text = "Back"
 	if Input.is_action_just_pressed("deselect_"+player_id):
 		_done = false

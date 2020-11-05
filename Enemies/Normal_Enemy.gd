@@ -32,7 +32,7 @@ func _process(delta):
 				if body.health > 0:
 					if abs((body.get_global_transform().origin - get_global_transform().origin).length_squared()) < abs((_target.get_global_transform().origin-get_global_transform().origin).length_squared()) or _target == null:
 						_target = body
-		if _target.health == 0:
+		if _target.health <= 0:
 			_target = null
 			should_move = false
 			for body in _sight.get_overlapping_bodies():

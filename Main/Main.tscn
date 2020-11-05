@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Art/Tiles.png" type="Texture" id=1]
 [ext_resource path="res://Main/Main.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/Enemy_Spawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Main/LevelDoor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Main/FadeButton.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -51,6 +52,21 @@ script = ExtResource( 2 )
 [node name="MainMenu" type="Node2D" parent="."]
 
 [node name="PlayerPickers" type="Node2D" parent="MainMenu"]
+
+[node name="Startgame" type="Node2D" parent="MainMenu"]
+
+[node name="Label" type="Label" parent="MainMenu/Startgame"]
+margin_left = 480.0
+margin_top = 480.0
+margin_right = 605.0
+margin_bottom = 494.0
+text = "Press     to start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" parent="MainMenu/Startgame/Label" instance=ExtResource( 5 )]
+position = Vector2( 45.306, 6.60712 )
 
 [node name="Gameplay" type="Node2D" parent="."]
 

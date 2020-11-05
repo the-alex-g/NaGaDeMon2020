@@ -17,6 +17,7 @@ var _damage := 1
 var swingdir := 1
 var swinging := false
 var _light_colors := {"red":Color.red, "yellow":Color.yellow, "blue":Color(0,0.5,1,1), "green":Color.green}
+signal died
 
 func _ready():
 	_light.color = _light_colors[player_color]
@@ -60,9 +61,10 @@ func _physics_process(delta):
 			_light.energy = 0
 
 func ow(damage):
-	health -= damage
-	if health <= 0:
-		health = 0
+	if health > 0:
+		health -= damage
+		if health <= 0:
+			emit_signal("died")
 
 func _on_Area2D_body_entered(body):
 	if body.has_method("hit"):

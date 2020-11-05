@@ -17,7 +17,7 @@ func _on_Timer_timeout():
 	elif health <= 0:
 		if enemies == 0:
 			emit_signal("spawner_cleared")
-			queue_free()
+			$Timer.stop()
 
 func spawn_died():
 	enemies -= 1

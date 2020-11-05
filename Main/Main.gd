@@ -22,6 +22,7 @@ var L5_exit_limit := 1
 var L6_exit_limit := 1
 var L7_exit_limit := 1
 var L8_exit_limit := 1
+var players_left := 0
 signal color_chosen(color, id)
 signal color_taken_back(color)
 signal game_started
@@ -30,20 +31,6 @@ func _ready():
 	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
 
 func _process(_delta):
-	if _player1_color != "" and _player2_color != "" and _player_count > 0 and _level == 0:
-		if Input.is_action_just_pressed("start_game"):
-			_main_menu.hide()
-			emit_signal("game_started")
-			for x in _player_count:
-				var _Player := player.instance()
-				_Player.player_number = x+1
-				_Player.player_color = get("_player"+str(x+1)+"_color")
-				_Player.position = _playerpositions.get_node("Position1_"+str(x+1)).get_global_transform().origin
-				_players.add_child(_Player)
-			_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
-			_level = 1
-			for spawner in $Gameplay/Spawners.get_children():
-				spawner.max_enemies = _player_count*2
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
 		_add_player_selector(1)
 		_player_count += 1
@@ -60,6 +47,25 @@ func _process(_delta):
 		_add_player_selector(4)
 		_player_count += 1
 		_player4_color = ""
+	if _player1_color != "" and _player2_color != "" and _player_count > 0 and _level == 0:
+		$MainMenu/Startgame/Label.text = "Press     to Start"
+		if Input.is_action_just_pressed("start_game"):
+			_main_menu.hide()
+			emit_signal("game_started")
+			for x in _player_count:
+				var _Player := player.instance()
+				_Player.player_number = x+1
+				_Player.player_color = get("_player"+str(x+1)+"_color")
+				_Player.position = _playerpositions.get_node("Position1_"+str(x+1)).get_global_transform().origin
+				var _error = _Player.connect("died", self, "_player_died")
+				_players.add_child(_Player)
+			_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
+			_level = 1
+			for spawner in $Gameplay/Spawners.get_children():
+				spawner.max_enemies = _player_count*2
+			players_left = _player_count
+	else:
+		$MainMenu/Startgame/Label.text = "Press     to Join"
 
 func _add_player_selector(id):
 	var Selector := selector.instance()
@@ -78,6 +84,40 @@ func _add_player_selector(id):
 	if _selectors.get_child_count() > 1:
 		for child in _selectors.get_children():
 			child.position.x -= 80
+
+func _player_died():
+	players_left -= 1
+	if players_left == 0:
+		yield(get_tree().create_timer(1), "timeout")
+		restart()
+
+func restart():
+	for player in _players.get_children():
+		player.queue_free()
+	for selector in _selectors.get_children():
+		selector.queue_free()
+	_level = 0
+	L1_exit_limit = 1
+	L2_exit_limit = 2
+	L3_exit_limit = 0
+	L4_exit_limit = 0
+	L5_exit_limit = 0
+	L6_exit_limit = 0
+	L7_exit_limit = 0
+	L8_exit_limit = 0
+	for spawner in $Gameplay/Spawners.get_children():
+		spawner.show()
+		spawner.enemies = 0
+		spawner.health = 5
+		spawner.get_node("Timer").stop()
+	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
+	for x in 4:
+		set("_player"+str(x+1)+"_color", "not")
+	_player_count = 0
+	players_left = 0
+	$MainMenu.show()
+	for enemy in $Gameplay/Enemies.get_children():
+		enemy.queue_free()
 
 func _chosen_color(color, id):
 	_set_player_color(color, id)
