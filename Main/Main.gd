@@ -42,6 +42,8 @@ func _process(_delta):
 				_players.add_child(_Player)
 			_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
 			_level = 1
+			for spawner in $Gameplay/Spawners.get_children():
+				spawner.max_enemies = _player_count*2
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
 		_add_player_selector(1)
 		_player_count += 1

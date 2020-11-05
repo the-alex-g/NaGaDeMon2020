@@ -3,11 +3,12 @@ extends StaticBody2D
 const enemy := preload("res://Enemies/Normal_Enemy.tscn")
 var health := 5
 var enemies := 0
+var max_enemies:int
 signal create_enemy(enemy)
 signal spawner_cleared
 
 func _on_Timer_timeout():
-	if enemies < 4 and health > 0:
+	if enemies < max_enemies and health > 0:
 		var Enemy := enemy.instance()
 		Enemy.position = get_global_transform().origin
 		var _error = Enemy.connect("died", self, "spawn_died")

@@ -6,6 +6,7 @@ var player_colors := ["red", "yellow", "blue","green"]
 var player_color_choice_id := 0
 export var player_color_choice := "red"
 var _done := false
+var _add_to_anim := ""
 signal chosen_color(color, id)
 signal color_taken_back(color, id)
 
@@ -20,10 +21,12 @@ func _process(_delta):
 		if Input.is_action_just_pressed("select_"+player_id):
 			emit_signal("chosen_color", player_color_choice, player_id)
 			_done = true
+			_add_to_anim = "_go"
 	if Input.is_action_just_pressed("deselect_"+player_id):
 		_done = false
+		_add_to_anim = ""
 		emit_signal("color_taken_back", player_color_choice, player_id)
-	_sprite.play(player_color_choice)
+	_sprite.play(player_color_choice+_add_to_anim)
 
 func _color_chosen(color, id):
 	if color == player_color_choice and player_id != id:
