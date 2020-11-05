@@ -160,7 +160,6 @@ position = Vector2( 1536, 1024 )
 
 [node name="Spawner" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 1536, 304 )
-type = "Ram"
 
 [node name="Spawner2" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2272, 128 )
@@ -170,18 +169,22 @@ position = Vector2( 2848, 128 )
 
 [node name="Spawner4" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 512, 672 )
+type = "Ram"
 
 [node name="Spawner5" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 1824, 928 )
+type = "Ram"
 
 [node name="Spawner6" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 1248, 928 )
+type = "Ram"
 
 [node name="Spawner7" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2272, 832 )
 
 [node name="Spawner8" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2272, 992 )
+type = "Ram"
 
 [node name="Spawner9" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2816, 832 )
