@@ -58,6 +58,7 @@ func _process(_delta):
 				_Player.player_color = get("_player"+str(x+1)+"_color")
 				_Player.position = _playerpositions.get_node("Position1_"+str(x+1)).get_global_transform().origin
 				var _error = _Player.connect("died", self, "_player_died")
+				var _error2 = _Player.connect("rejuvenated", self, "_player_lived")
 				_players.add_child(_Player)
 			_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
 			_level = 1
@@ -90,6 +91,9 @@ func _player_died():
 	if players_left == 0:
 		yield(get_tree().create_timer(1), "timeout")
 		restart()
+
+func _player_lived():
+	players_left += 1
 
 func restart():
 	for player in _players.get_children():

@@ -18,6 +18,7 @@ var swingdir := 1
 var swinging := false
 var _light_colors := {"red":Color.red, "yellow":Color.yellow, "blue":Color(0,0.5,1,1), "green":Color.green}
 signal died
+signal rejuvenated
 
 func _ready():
 	_light.color = _light_colors[player_color]
@@ -29,7 +30,7 @@ func _ready():
 		swingdir = 1
 
 func _physics_process(delta):
-	if health != 0:
+	if health > 0:
 		var velocity := Vector2(0,0)
 		if Input.is_action_pressed("down_"+player_number):
 			velocity.y += 1
@@ -69,3 +70,13 @@ func ow(damage):
 func _on_Area2D_body_entered(body):
 	if body.has_method("hit"):
 		body.hit(_damage)
+
+func _heal_area_entered(body):
+	if body.has_method("ow"):
+		if body.player_number != player_number and body.health <= 0:
+			body.get_node("Timer").start()
+
+func _on_Timer_timeout():
+	health = maxhealth
+	$Timer.stop()
+	emit_signal("rejuvenated")
