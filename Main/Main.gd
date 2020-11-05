@@ -64,6 +64,8 @@ func _process(_delta):
 			_level = 1
 			for spawner in $Gameplay/Spawners.get_children():
 				spawner.max_enemies = _player_count*2
+				if spawner.type == "Ram":
+					spawner.max_enemies /= 2
 			players_left = _player_count
 	else:
 		$MainMenu/Startgame/Label.text = "Press     to Join"
