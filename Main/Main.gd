@@ -69,7 +69,15 @@ func _add_player_selector(id):
 	var _error2 = Selector.connect("color_taken_back", self, "_color_taken_back")
 	var _error4 = connect("color_taken_back", Selector, "_color_taken_back")
 	var _error3 = connect("color_chosen", Selector, "_color_chosen")
+	var next_banner_pos := 512
+	if _selectors.get_child_count() > 0:
+		for child in _selectors.get_children():
+			next_banner_pos = child.get_global_transform().origin.x
+	Selector.position = Vector2(next_banner_pos+(160 if _player_count > 0 else 0),304)
 	_selectors.add_child(Selector)
+	if _selectors.get_child_count() > 1:
+		for child in _selectors.get_children():
+			child.position.x -= 80
 
 func _chosen_color(color, id):
 	_set_player_color(color, id)
