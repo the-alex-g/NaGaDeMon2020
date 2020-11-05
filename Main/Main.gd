@@ -69,7 +69,6 @@ func _add_player_selector(id):
 	var _error2 = Selector.connect("color_taken_back", self, "_color_taken_back")
 	var _error4 = connect("color_taken_back", Selector, "_color_taken_back")
 	var _error3 = connect("color_chosen", Selector, "_color_chosen")
-	Selector.position = Vector2(id*100, 300)
 	_selectors.add_child(Selector)
 
 func _chosen_color(color, id):

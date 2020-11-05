@@ -22,6 +22,11 @@ func _process(_delta):
 			emit_signal("chosen_color", player_color_choice, player_id)
 			_done = true
 			_add_to_anim = "_go"
+		$Buttons.play("A")
+		$Label2.text = "Select"
+	elif _done:
+		$Buttons.play("B")
+		$Label2.text = "Back"
 	if Input.is_action_just_pressed("deselect_"+player_id):
 		_done = false
 		_add_to_anim = ""

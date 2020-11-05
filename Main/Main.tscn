@@ -50,7 +50,14 @@ script = ExtResource( 2 )
 
 [node name="MainMenu" type="Node2D" parent="."]
 
-[node name="PlayerPickers" type="Node2D" parent="MainMenu"]
+[node name="PlayerPickers" type="HBoxContainer" parent="MainMenu"]
+margin_left = 512.0
+margin_top = 288.0
+margin_right = 512.0
+margin_bottom = 288.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Gameplay" type="Node2D" parent="."]
 

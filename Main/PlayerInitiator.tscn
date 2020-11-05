@@ -1,45 +1,39 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Art/PlayerBanners.png" type="Texture" id=1]
 [ext_resource path="res://Main/PlayerInitiator.gd" type="Script" id=2]
+[ext_resource path="res://Art/Buttons.png" type="Texture" id=3]
+[ext_resource path="res://Fonts/Font.tres" type="DynamicFont" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 64, 64, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=4]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 0, 64, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=6]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 32, 64, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 96, 0, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 96, 64, 32, 64 )
 
@@ -86,9 +80,84 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 102, 102, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 34, 136, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 68, 136, 34, 34 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 10 ), SubResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 68, 0, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 34, 0, 34, 34 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 14 ) ],
+"loop": true,
+"name": "B",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ) ],
+"loop": true,
+"name": "A",
+"speed": 5.0
+} ]
+
 [node name="PlayerInitiator" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 4, 4 )
 frames = SubResource( 5 )
 animation = "green_go"
+
+[node name="Stick" type="AnimatedSprite" parent="."]
+position = Vector2( -38.2115, 15.6748 )
+frames = SubResource( 13 )
+frame = 2
+playing = true
+
+[node name="Buttons" type="AnimatedSprite" parent="."]
+position = Vector2( -9.54593, 37.1231 )
+frames = SubResource( 16 )
+animation = "B"
+
+[node name="Label" type="Label" parent="."]
+margin_left = -21.8921
+margin_top = 9.72985
+margin_right = 61.1079
+margin_bottom = 23.7299
+custom_fonts/font = ExtResource( 4 )
+text = "Change Color"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 2.44366
+margin_top = 29.4142
+margin_right = 41.4437
+margin_bottom = 45.4142
+custom_fonts/font = ExtResource( 4 )
+text = "Select"
+__meta__ = {
+"_edit_use_anchors_": false
+}
