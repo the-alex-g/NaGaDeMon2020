@@ -19,9 +19,9 @@ var L2_exit_limit := 2
 var L3_exit_limit := 1
 var L4_exit_limit := 2
 var L5_exit_limit := 3
-var L6_exit_limit := 1
-var L7_exit_limit := 1
-var L8_exit_limit := 1
+var L6_exit_limit := 5
+var L7_exit_limit := 3
+var L8_exit_limit := 4
 var players_left := 0
 signal color_chosen(color, id)
 signal color_taken_back(color)
@@ -60,6 +60,9 @@ func _process(_delta:float):
 				var _error = _Player.connect("died", self, "_player_died")
 				var _error2 = _Player.connect("rejuvenated", self, "_player_lived")
 				_players.add_child(_Player)
+				if _player_count == 1:
+					_Player.health *= 2
+					_Player.maxhealth *= 2
 			_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
 			_level = 1
 			for spawner in $Gameplay/Spawners.get_children():
@@ -68,7 +71,6 @@ func _process(_delta:float):
 				if spawner.type == "Ram":
 					spawner.max_enemies /= 2
 				elif spawner.type == "Swarm":
-					spawner.max_enemies *= 2
 					spawner.spawn_rate /= 2
 				elif spawner.type == "Hulk":
 					spawner.spawn_rate *= 2

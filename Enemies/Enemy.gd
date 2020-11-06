@@ -10,6 +10,7 @@ var _target
 var swingdir := 1
 var swinging := false
 var _swingspeed := 0.0
+var _rotate_dir := -1
 export var health := 1.0
 export var _damage := 1.0
 var should_move := false
@@ -17,6 +18,8 @@ signal died
 
 func _ready():
 	_new_sword_dir()
+	_rotate_dir = -1 if randi()%2 == 0 else 1
+	_sword.rotation_degrees = rand_range(0, 359)
 
 func _process(delta):
 	_sprite.rotation_degrees -= 1

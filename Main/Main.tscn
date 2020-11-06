@@ -275,21 +275,21 @@ level = "7"
 [node name="Spawner18" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2816, 1440 )
 type = "Hulk"
-level = "7"
+level = "8"
 
 [node name="Spawner19" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2816, 1600 )
 type = "Ram"
-level = "7"
+level = "8"
 
 [node name="Spawner20" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2656, 1600 )
 type = "Swarm"
-level = "7"
+level = "8"
 
 [node name="Spawner21" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2656, 1440 )
-level = "7"
+level = "8"
 
 [node name="Enemies" type="Node2D" parent="Gameplay"]
 

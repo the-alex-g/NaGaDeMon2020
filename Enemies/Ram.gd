@@ -6,6 +6,7 @@ export var maxswingspeed := 5
 onready var _sight := $Sightrange
 onready var _sprite := $Sprite
 var _target
+var _rotate_dir := -1
 var health := 1
 var _damage := 2
 var should_move := false
@@ -16,9 +17,11 @@ signal died
 func _ready():
 	$Timer.start()
 	$Timer2.start()
+	_rotate_dir = -1 if randi()%2 == 0 else 1
+	$Ram.rotation_degrees = rand_range(0, 359)
 
 func _process(delta):
-	_sprite.rotation_degrees += 1
+	_sprite.rotation_degrees += _rotate_dir
 	if should_move:
 		if _target != null:
 			destination = _target.get_global_transform().origin
@@ -36,7 +39,6 @@ func _process(delta):
 						_target = body
 						should_move = true
 						break
-	$Ram.rotation_degrees = rad2deg(direction.angle())+90
 
 func hit(damage):
 	health -= damage
@@ -60,3 +62,4 @@ func _on_Sightrange_body_entered(body):
 
 func _on_Timer2_timeout():
 	direction = destination - get_global_transform().origin
+	$Ram.rotation_degrees = rad2deg(direction.angle())+90
