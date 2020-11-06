@@ -30,7 +30,7 @@ signal game_started
 func _ready():
 	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
 
-func _process(_delta):
+func _process(_delta:float):
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
 		_add_player_selector(1)
 		_player_count += 1
@@ -64,13 +64,19 @@ func _process(_delta):
 			_level = 1
 			for spawner in $Gameplay/Spawners.get_children():
 				spawner.max_enemies = _player_count*2
+				spawner.health *= _player_count
 				if spawner.type == "Ram":
 					spawner.max_enemies /= 2
+				elif spawner.type == "Swarm":
+					spawner.max_enemies *= 2
+					spawner.spawn_rate /= 2
+				elif spawner.type == "Hulk":
+					spawner.spawn_rate *= 2
 			players_left = _player_count
 	else:
 		$MainMenu/Startgame/Label.text = "Press     to Join"
 
-func _add_player_selector(id):
+func _add_player_selector(id:int):
 	var Selector := selector.instance()
 	Selector.player_id = id
 	Selector.player_color_choice = Selector.player_colors[id-1]
@@ -125,11 +131,11 @@ func restart():
 	for enemy in $Gameplay/Enemies.get_children():
 		enemy.queue_free()
 
-func _chosen_color(color, id):
+func _chosen_color(color:String, id:String):
 	_set_player_color(color, id)
 	emit_signal("color_chosen", color, id)
 
-func _set_player_color(set_to, id):
+func _set_player_color(set_to:String, id:String):
 	if id == "1":
 		_player1_color = set_to
 	elif id == "2":
@@ -143,22 +149,19 @@ func _color_taken_back(color, id):
 	_set_player_color("", id)
 	emit_signal("color_taken_back", color)
 
-func _create_enemy(enemy):
+func _create_enemy(enemy:Node2D):
 	$Gameplay/Enemies.add_child(enemy)
 
-func _L1_spawner_cleared():
-	L1_exit_limit -= 1
+func _spawner_cleared(level:String):
+	set("L"+level+"_exit_limit", get("L"+level+"_exit_limit")-1)
 
-func _on_Portal_entered(destination, location):
+func _on_Portal_entered(destination:int, location:int):
 	if get("L"+str(location)+"_exit_limit") == 0:
 		go_to_next_level(destination)
 
-func go_to_next_level(level):
+func go_to_next_level(level:int):
 	_level = level
 	for player in _players.get_children():
 		player.position = _playerpositions.get_node("Position"+str(_level)+"_"+player.player_number).get_global_transform().origin
 		player.health = player.maxhealth
 	_camera.position = _camerapositions.get_node("Position"+str(_level+1)).get_global_transform().origin
-
-func _L2_spawner_cleared():
-	L2_exit_limit -= 1

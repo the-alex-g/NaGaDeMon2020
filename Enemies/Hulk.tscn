@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Art/Player_Light_Radius.png" type="Texture" id=1]
 [ext_resource path="res://Art/Enemies.png" type="Texture" id=2]
-[ext_resource path="res://Enemies/Normal_Enemy.gd" type="Script" id=3]
+[ext_resource path="res://Enemies/Enemy.gd" type="Script" id=3]
 [ext_resource path="res://Art/Player_Blade.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -14,11 +14,12 @@ radius = 232.0
 [sub_resource type="CircleShape2D" id=3]
 radius = 4.01377
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="Swarm" type="KinematicBody2D"]
 z_index = 1
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 3 )
+_damage = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -26,6 +27,8 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
+vframes = 2
+hframes = 2
 
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 0.5, 0.5 )

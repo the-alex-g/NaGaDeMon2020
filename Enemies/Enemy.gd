@@ -10,8 +10,8 @@ var _target
 var swingdir := 1
 var swinging := false
 var _swingspeed := 0.0
-var health := 1
-var _damage := 1
+export var health := 1.0
+export var _damage := 1.0
 var should_move := false
 signal died
 
