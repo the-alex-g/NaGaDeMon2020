@@ -91,6 +91,9 @@ func _add_player_selector(id:int):
 		for child in _selectors.get_children():
 			next_banner_pos = child.get_global_transform().origin.x
 	Selector.position = Vector2(next_banner_pos+(160 if _player_count > 0 else 0),304)
+#	for x in 4:
+#		if get("_player"+str(x+1)+"_color") != "not":
+#			Selector.player_colors.remove(get("_player"+str(x+1)+"_color"))
 	_selectors.add_child(Selector)
 	if _selectors.get_child_count() > 1:
 		for child in _selectors.get_children():

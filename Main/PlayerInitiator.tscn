@@ -28,15 +28,15 @@ region = Rect2( 32, 0, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 96, 0, 32, 64 )
+region = Rect2( 32, 64, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 96, 64, 32, 64 )
+region = Rect2( 96, 0, 32, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 64, 32, 64 )
+region = Rect2( 96, 64, 32, 64 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
@@ -67,17 +67,17 @@ animations = [ {
 }, {
 "frames": [ SubResource( 6 ) ],
 "loop": true,
-"name": "green_go",
+"name": "yellow_go",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 7 ) ],
 "loop": true,
-"name": "blue_go",
+"name": "green_go",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 8 ) ],
 "loop": true,
-"name": "yellow_go",
+"name": "blue_go",
 "speed": 5.0
 } ]
 
@@ -112,6 +112,7 @@ animation = "green_go"
 [node name="Stick" type="AnimatedSprite" parent="."]
 position = Vector2( -38.2115, 15.6748 )
 frames = SubResource( 13 )
+frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="."]
