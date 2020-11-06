@@ -74,6 +74,7 @@ func _process(_delta:float):
 					spawner.spawn_rate /= 2
 				elif spawner.type == "Hulk":
 					spawner.spawn_rate *= 2
+			$Gameplay/NaGaDeMon.health *= _player_count
 			players_left = _player_count
 	else:
 		$MainMenu/Startgame/Label.text = "Press     to Join"
@@ -91,9 +92,9 @@ func _add_player_selector(id:int):
 		for child in _selectors.get_children():
 			next_banner_pos = child.get_global_transform().origin.x
 	Selector.position = Vector2(next_banner_pos+(160 if _player_count > 0 else 0),304)
-#	for x in 4:
-#		if get("_player"+str(x+1)+"_color") != "not":
-#			Selector.player_colors.remove(get("_player"+str(x+1)+"_color"))
+	for x in 4:
+		if get("_player"+str(x+1)+"_color") != "not":
+			Selector.player_colors.remove(get("_player"+str(x+1)+"_color"))
 	_selectors.add_child(Selector)
 	if _selectors.get_child_count() > 1:
 		for child in _selectors.get_children():
@@ -135,6 +136,7 @@ func restart():
 	$MainMenu.show()
 	for enemy in $Gameplay/Enemies.get_children():
 		enemy.queue_free()
+	$Gameplay/NaGaDeMon.health = 5
 
 func _chosen_color(color:String, id:String):
 	_set_player_color(color, id)
@@ -170,3 +172,7 @@ func go_to_next_level(level:int):
 		player.position = _playerpositions.get_node("Position"+str(_level)+"_"+player.player_number).get_global_transform().origin
 		player.health = player.maxhealth
 	_camera.position = _camerapositions.get_node("Position"+str(_level+1)).get_global_transform().origin
+
+func _on_NaGaDeMon_died():
+	yield(get_tree().create_timer(1), "timeout")
+	restart()
