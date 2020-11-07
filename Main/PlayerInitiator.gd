@@ -11,6 +11,10 @@ var _add_to_anim := ""
 signal chosen_color(color, id)
 signal color_taken_back(color, id)
 
+func _ready():
+	var _error = $Tween.interpolate_property(self, "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.5)
+	_error = $Tween.start()
+
 func _process(_delta):
 	if not _done:
 		if Input.is_action_just_pressed("right_"+player_id):

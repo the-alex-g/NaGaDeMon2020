@@ -102,6 +102,7 @@ animations = [ {
 } ]
 
 [node name="PlayerInitiator" type="Node2D"]
+modulate = Color( 1, 1, 1, 0 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -139,3 +140,5 @@ __meta__ = {
 
 [node name="Button" parent="." instance=ExtResource( 5 )]
 position = Vector2( -10.9601, 37.4766 )
+
+[node name="Tween" type="Tween" parent="."]
