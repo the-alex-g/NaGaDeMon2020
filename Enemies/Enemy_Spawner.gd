@@ -16,6 +16,7 @@ signal spawner_cleared(level)
 
 func _ready():
 	rotate_dir = -1 if randi()%2 == 0 else 1
+	$SpawnLocationArm/AnimatedSprite.hide()
 
 func _process(_delta):
 	$Sprite.rotation_degrees += rotate_dir
@@ -46,7 +47,8 @@ func spawn_died():
 func hit(damage):
 	health -= damage
 	if health <= 0:
-		hide()
+		var _error = $Tween.interpolate_property(self, "modulate", null, Color(0,0,0,0), 0.5)
+		_error = $Tween.start()
 
 func _on_Area2D_body_entered(body):
 	if body is Player:

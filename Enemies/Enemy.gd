@@ -22,44 +22,52 @@ func _ready():
 	_sword.rotation_degrees = rand_range(0, 359)
 
 func _process(delta):
-	_sprite.rotation_degrees -= 1
-	if should_move:
-		var destination:Vector2
-		if _target != null:
-			destination = _target.get_global_transform().origin
-		var direction = destination - get_global_transform().origin
-		var velocity = direction.normalized() * speed
-		var _error = move_and_collide(velocity*delta)
-		for body in _sight.get_overlapping_bodies():
-			if body is Player:
-				if body.health > 0:
-					if abs((body.get_global_transform().origin - get_global_transform().origin).length_squared()) < abs((_target.get_global_transform().origin-get_global_transform().origin).length_squared()) or _target == null:
-						_target = body
-		if _target.health <= 0:
-			_target = null
-			should_move = false
+	if health > 0:
+		_sprite.rotation_degrees -= 1
+		if should_move:
+			var destination:Vector2
+			if _target != null:
+				destination = _target.get_global_transform().origin
+			var direction = destination - get_global_transform().origin
+			var velocity = direction.normalized() * speed
+			var _error = move_and_collide(velocity*delta)
 			for body in _sight.get_overlapping_bodies():
 				if body is Player:
-					if body.health != 0:
-						_target = body
-						should_move = true
-						break
-	if swinging:
-		if _swingspeed < maxswingspeed:
-			_swingspeed += 0.1
-	elif not swinging:
-		if _swingspeed > minswingspeed:
-			_swingspeed -= 0.1
-	_sword.rotation_degrees += _swingspeed*swingdir
+					if body.health > 0:
+						if abs((body.get_global_transform().origin - get_global_transform().origin).length_squared()) < abs((_target.get_global_transform().origin-get_global_transform().origin).length_squared()) or _target == null:
+							_target = body
+			if _target.health <= 0:
+				_target = null
+				should_move = false
+				for body in _sight.get_overlapping_bodies():
+					if body is Player:
+						if body.health != 0:
+							_target = body
+							should_move = true
+							break
+		if swinging:
+			if _swingspeed < maxswingspeed:
+				_swingspeed += 0.1
+		elif not swinging:
+			if _swingspeed > minswingspeed:
+				_swingspeed -= 0.1
+		_sword.rotation_degrees += _swingspeed*swingdir
 
 func hit(damage):
 	health -= damage
 	if health <= 0:
 		emit_signal("died")
+		$CollisionShape2D.set_deferred("disabled", true)
+		var _error = $Tween.interpolate_property($Light2D, "energy", null, $Light2D.energy-1, 0.5)
+		_error = $Tween.start()
+		yield(get_tree().create_timer(0.25), "timeout")
+		_error = $Tween.interpolate_property(self, "modulate", null, Color(0,0,0,0), 0.5)
+		_error = $Tween.start()
+		yield(get_tree().create_timer(0.5), "timeout")
 		queue_free()
 
 func _on_Area2D_body_entered(body):
-	if body is Player:
+	if body is Player and health > 0:
 		body.ow(_damage)
 
 func _new_sword_dir():

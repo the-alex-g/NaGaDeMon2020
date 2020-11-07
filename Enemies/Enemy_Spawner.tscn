@@ -74,7 +74,6 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "Lightning"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -103,10 +102,13 @@ cast_to = Vector2( 0, 80 )
 position = Vector2( 40, 0.702 )
 scale = Vector2( 2, 1 )
 frames = SubResource( 14 )
+frame = 3
 playing = true
 
 [node name="Timer2" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
