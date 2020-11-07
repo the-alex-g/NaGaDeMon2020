@@ -27,6 +27,7 @@ func _process(_delta):
 			emit_signal("chosen_color", player_color_choice, player_id)
 			_done = true
 			_add_to_anim = "_go"
+			$AudioStreamPlayer2D.play()
 		_button.type = "A2"
 		$Label2.text = "Select"
 	elif _done:
@@ -35,6 +36,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("deselect_"+player_id):
 		_done = false
 		_add_to_anim = ""
+		$AudioStreamPlayer2D.play()
 		emit_signal("color_taken_back", player_color_choice, player_id)
 	_sprite.play(player_color_choice+_add_to_anim)
 

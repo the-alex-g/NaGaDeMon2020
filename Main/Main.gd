@@ -35,18 +35,22 @@ func _process(_delta:float):
 		_add_player_selector(1)
 		_player_count += 1
 		_player1_color = ""
+		$MainMenu/AudioStreamPlayer2D.play()
 	if Input.is_action_just_pressed("select_2") and _player2_color == "not":
 		_add_player_selector(2)
 		_player_count += 1
 		_player2_color = ""
+		$MainMenu/AudioStreamPlayer2D.play()
 	if Input.is_action_just_pressed("select_3") and _player3_color == "not":
 		_add_player_selector(3)
 		_player_count += 1
 		_player3_color = ""
+		$MainMenu/AudioStreamPlayer2D.play()
 	if Input.is_action_just_pressed("select_4") and _player4_color == "not":
 		_add_player_selector(4)
 		_player_count += 1
 		_player4_color = ""
+		$MainMenu/AudioStreamPlayer2D.play()
 	if _player1_color != "" and _player2_color != "" and _player_count > 0 and _level == 0:
 		$MainMenu/Startgame/Label.text = "Press     to Start"
 		if Input.is_action_just_pressed("start_game"):
@@ -165,6 +169,7 @@ func _spawner_cleared(level:String):
 func _on_Portal_entered(destination:int, location:int):
 	if get("L"+str(location)+"_exit_limit") == 0:
 		go_to_next_level(destination)
+		$Gameplay/AudioStreamPlayer2D.play()
 
 func go_to_next_level(level:int):
 	_level = level
