@@ -8,7 +8,7 @@ signal entered(destination, location)
 func _ready():
 	if portal_number == 1:
 		$AnimatedSprite.play("Blue")
-	else:
+	elif portal_number == 2:
 		$AnimatedSprite.play("Yellow")
 
 func _on_Portal_body_entered(body):
