@@ -57,26 +57,35 @@ func _physics_process(delta):
 		_sword.rotation_degrees += _swingspeed*swingdir
 		var _error = move_and_collide(velocity.normalized()*delta*speed)
 		_sprite.rotation_degrees += 1
-		_light.energy = health/maxhealth
-		if health <= 0:
-			_light.energy = 0
+		_error = $Tween.interpolate_property(_light, "energy", null, health/maxhealth, 0.25)
+		_error = $Tween.start()
+	if health <= 0:
+		_light.enabled = false
 
 func ow(damage):
-	if health > 0:
+	#if health > 0:
 		health -= damage
 		if health <= 0:
 			emit_signal("died")
+			_swingspeed = minswingspeed*swingdir
+			$CollisionShape2D.set_deferred("disabled", true)
+			var _error = $Tween.interpolate_property(self, "modulate", null, Color(0.5,0.5,0.5,0.5), 0.5)
+			_error = $Tween.start()
 
 func _on_Area2D_body_entered(body):
-	if body.has_method("hit"):
+	if body.has_method("hit") and health > 0:
 		body.hit(_damage)
 
 func _heal_area_entered(body):
 	if body.has_method("ow"):
-		if body.player_number != player_number and body.health <= 0:
-			body.get_node("Timer").start()
+		if health <= 0:
+			$Timer.start()
 
 func _on_Timer_timeout():
-	health = maxhealth
+	health = maxhealth/2
 	$Timer.stop()
+	_light.enabled = true
 	emit_signal("rejuvenated")
+	$CollisionShape2D.set_deferred("disabled", false)
+	var _error = $Tween.interpolate_property(self, "modulate", null, Color(1,1,1,1), 0.5)
+	_error = $Tween.start()

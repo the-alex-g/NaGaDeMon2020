@@ -91,7 +91,7 @@ shape = SubResource( 7 )
 shape = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 [connection signal="body_entered" from="Sword/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Healarea" to="." method="_heal_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

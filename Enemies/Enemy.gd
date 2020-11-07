@@ -41,7 +41,7 @@ func _process(delta):
 				should_move = false
 				for body in _sight.get_overlapping_bodies():
 					if body is Player:
-						if body.health != 0:
+						if body.health > 0:
 							_target = body
 							should_move = true
 							break
