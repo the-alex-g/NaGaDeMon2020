@@ -24,7 +24,8 @@ func _on_Timer_timeout():
 	if enemies < max_enemies and health > 0:
 		var Enemy := sword.instance() if type == "Sword" else ram.instance() if type == "Ram" else swarm.instance() if type == "Swarm" else hulk.instance()
 		_get_new_arm_location()
-		
+		$SpawnLocationArm/AnimatedSprite.show()
+		$Timer2.start()
 		if $SpawnLocationArm/RayCast2D.is_colliding():
 			_get_new_arm_location()
 		Enemy.position = $SpawnLocationArm/SpawnLocation.get_global_transform().origin
@@ -50,3 +51,7 @@ func hit(damage):
 func _on_Area2D_body_entered(body):
 	if body is Player:
 		$Timer.start(spawn_rate)
+
+func _on_Timer2_timeout():
+	$SpawnLocationArm/AnimatedSprite.hide()
+	$Timer2.stop()
