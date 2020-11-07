@@ -54,6 +54,8 @@ func _process(delta):
 		_sword.rotation_degrees += _swingspeed*swingdir
 
 func hit(damage):
+	if health > 0:
+		$AudioStreamPlayer2D.play()
 	health -= damage
 	if health <= 0:
 		emit_signal("died")

@@ -46,6 +46,8 @@ func spawn_died():
 
 func hit(damage):
 	health -= damage
+	if health > 0:
+		$AudioStreamPlayer2D.play()
 	if health <= 0:
 		var _error = $Tween.interpolate_property(self, "modulate", null, Color(0,0,0,0), 0.5)
 		_error = $Tween.start()

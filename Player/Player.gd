@@ -63,7 +63,8 @@ func _physics_process(delta):
 		_light.enabled = false
 
 func ow(damage):
-	#if health > 0:
+	if health > 0:
+		$AudioStreamPlayer2D.play()
 		health -= damage
 		if health <= 0:
 			emit_signal("died")

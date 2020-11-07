@@ -41,9 +41,18 @@ func _process(_delta):
 						break
 
 func hit(damage):
+	if health > 0:
+		$AudioStreamPlayer2D.play()
 	health -= damage
 	if health <= 0:
 		emit_signal("died")
+		$CollisionShape2D.set_deferred("disabled", true)
+		var _error = $Tween.interpolate_property($Light2D, "energy", null, $Light2D.energy-1, 0.5)
+		_error = $Tween.start()
+		yield(get_tree().create_timer(0.25), "timeout")
+		_error = $Tween.interpolate_property(self, "modulate", null, Color(0,0,0,0), 0.5)
+		_error = $Tween.start()
+		yield(get_tree().create_timer(0.5), "timeout")
 		queue_free()
 
 func _on_Area2D_body_entered(body):
