@@ -20,7 +20,7 @@ func _ready():
 	_rotate_dir = -1 if randi()%2 == 0 else 1
 	$Ram.rotation_degrees = rand_range(0, 359)
 
-func _process(delta):
+func _process(_delta):
 	_sprite.rotation_degrees += _rotate_dir
 	if should_move:
 		if _target != null:
