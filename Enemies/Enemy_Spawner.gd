@@ -49,6 +49,7 @@ func hit(damage):
 	if health > 0:
 		$AudioStreamPlayer2D.play()
 	if health <= 0:
+		$CollisionShape2D.set_deferred("disabled", true)
 		var _error = $Tween.interpolate_property(self, "modulate", null, Color(0,0,0,0), 0.5)
 		_error = $Tween.start()
 

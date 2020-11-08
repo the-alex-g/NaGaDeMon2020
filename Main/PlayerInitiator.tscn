@@ -114,7 +114,7 @@ animation = "green_go"
 [node name="Stick" type="AnimatedSprite" parent="."]
 position = Vector2( -38.2115, 15.6748 )
 frames = SubResource( 13 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="."]

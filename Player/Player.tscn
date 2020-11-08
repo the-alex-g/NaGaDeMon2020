@@ -57,7 +57,7 @@ radius = 21.2261
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 0.5, 0.5 )
-collision_mask = 2
+collision_mask = 2147483651
 script = ExtResource( 3 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]

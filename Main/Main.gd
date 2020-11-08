@@ -129,7 +129,8 @@ func restart():
 	L7_exit_limit = 0
 	L8_exit_limit = 0
 	for spawner in $Gameplay/Spawners.get_children():
-		spawner.show()
+		spawner.get_node("CollisionShape2D").disabled = false
+		spawner.modulate = Color(1,1,1,1)
 		spawner.enemies = 0
 		spawner.health = 5
 		spawner.get_node("Timer").stop()
