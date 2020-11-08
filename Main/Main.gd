@@ -8,6 +8,7 @@ onready var _playerpositions := $Gameplay/Positions/Playerpositions
 onready var _camerapositions := $Gameplay/Positions/Camerapostions
 onready var _camera := $Camera2D
 var _player_count := 0
+var VS = false
 var _player1_color:String = "not"
 var _player2_color:String = "not"
 var _player3_color:String = "not"
@@ -51,34 +52,46 @@ func _process(_delta:float):
 		_player_count += 1
 		_player4_color = ""
 		$MainMenu/AudioStreamPlayer2D.play()
+	if Input.is_action_just_pressed("Toggle_VS"):
+		VS = !VS
+		$MainMenu/Startgame/Coop.text = "Versus" if VS else "Cooprative"
 	if _player1_color != "" and _player2_color != "" and _player_count > 0 and _level == 0:
-		$MainMenu/Startgame/Label.text = "Press     to Start"
-		if Input.is_action_just_pressed("start_game"):
-			emit_signal("game_started")
-			for x in _player_count:
-				var _Player := player.instance()
-				_Player.player_number = x+1
-				_Player.player_color = get("_player"+str(x+1)+"_color")
-				_Player.position = _playerpositions.get_node("Position1_"+str(x+1)).get_global_transform().origin
-				var _error = _Player.connect("died", self, "_player_died")
-				var _error2 = _Player.connect("rejuvenated", self, "_player_lived")
-				_players.add_child(_Player)
-				if _player_count == 1:
-					_Player.health *= 2
-					_Player.maxhealth *= 2
-			_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
-			_level = 1
-			for spawner in $Gameplay/Spawners.get_children():
-				spawner.max_enemies = _player_count*2
-				spawner.health *= _player_count
-				if spawner.type == "Ram":
-					spawner.max_enemies /= 2
-				elif spawner.type == "Swarm":
-					spawner.spawn_rate /= 2
-				elif spawner.type == "Hulk":
-					spawner.spawn_rate *= 2
-			$Gameplay/NaGaDeMon.health *= _player_count
-			players_left = _player_count
+		if (VS and _player_count > 1) or (not VS and _player_count > 0):
+			$MainMenu/Startgame/Label.text = "Press     to Start"
+			if Input.is_action_just_pressed("start_game"):
+				emit_signal("game_started")
+				var VS_level := (randi()%2)+1
+				for x in _player_count:
+					var _Player := player.instance()
+					_Player.player_number = x+1
+					_Player.player_color = get("_player"+str(x+1)+"_color")
+					_Player.VS = VS
+					if not VS:
+						_Player.position = _playerpositions.get_node("Position1_"+str(x+1)).get_global_transform().origin
+					else:
+						_Player.position = _playerpositions.get_node("PositionVS"+str(VS_level)+"_"+str(x+1)).get_global_transform().origin
+					var _error = _Player.connect("died", self, "_player_died")
+					var _error2 = _Player.connect("rejuvenated", self, "_player_lived")
+					_players.add_child(_Player)
+					if _player_count == 1:
+						_Player.health *= 2
+						_Player.maxhealth *= 2
+				if not VS:
+					_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
+				else:
+					_camera.position = _camerapositions.get_node("PositionVS"+str(VS_level)).get_global_transform().origin
+				_level = 1
+				for spawner in $Gameplay/Spawners.get_children():
+					spawner.max_enemies = _player_count*2
+					spawner.health *= _player_count
+					if spawner.type == "Ram":
+						spawner.max_enemies /= 2
+					elif spawner.type == "Swarm":
+						spawner.spawn_rate /= 2
+					elif spawner.type == "Hulk":
+						spawner.spawn_rate *= 2
+				$Gameplay/NaGaDeMon.health *= _player_count
+				players_left = _player_count
 	else:
 		$MainMenu/Startgame/Label.text = "Press     to Join"
 
@@ -105,7 +118,13 @@ func _add_player_selector(id:int):
 
 func _player_died():
 	players_left -= 1
-	if players_left == 0:
+	if players_left == 0 and not VS:
+		yield(get_tree().create_timer(1), "timeout")
+		restart()
+	elif players_left == 1 and VS:
+		yield(get_tree().create_timer(1), "timeout")
+		restart()
+	elif players_left == 0 and VS:
 		yield(get_tree().create_timer(1), "timeout")
 		restart()
 

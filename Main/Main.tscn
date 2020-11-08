@@ -77,6 +77,31 @@ __meta__ = {
 [node name="Button" parent="MainMenu/Startgame/Label" instance=ExtResource( 5 )]
 position = Vector2( 45.306, 6.60712 )
 
+[node name="Toggle" type="Label" parent="MainMenu/Startgame"]
+margin_left = 432.797
+margin_top = 544.707
+margin_right = 584.797
+margin_bottom = 558.707
+text = "Press     to toggle mode"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Button" parent="MainMenu/Startgame/Toggle" instance=ExtResource( 5 )]
+position = Vector2( 45.306, 6.60712 )
+type = "X1"
+
+[node name="Coop" type="Label" parent="MainMenu/Startgame"]
+margin_left = 480.0
+margin_top = 512.0
+margin_right = 548.0
+margin_bottom = 526.0
+text = "Cooprative"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MainMenu"]
 stream = ExtResource( 8 )
 volume_db = 10.0

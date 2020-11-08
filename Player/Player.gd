@@ -10,6 +10,7 @@ onready var _tween := $Tween
 onready var _sword := $Sword
 var player_color:String = "red"
 var player_number:String = "1"
+var VS = false
 var _swingspeed := 0.0
 var maxhealth := 3.0
 var health := 3.0
@@ -74,11 +75,14 @@ func ow(damage):
 			_error = $Tween.start()
 
 func _on_Area2D_body_entered(body):
-	if body.has_method("hit") and health > 0:
+	if body.has_method("hit") and health > 0 and not VS:
 		body.hit(_damage)
+	elif VS and body.has_method("ow"):
+		if body.player_number != player_number:
+			body.ow(_damage)
 
 func _heal_area_entered(body):
-	if body.has_method("ow"):
+	if body.has_method("ow") and not VS:
 		if health <= 0:
 			$Timer.start()
 
