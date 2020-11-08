@@ -2,7 +2,6 @@ extends Node2D
 
 const player := preload("res://Player/Player.tscn")
 const selector := preload("res://Main/PlayerInitiator.tscn")
-onready var _main_menu := $MainMenu
 onready var _players := $Gameplay/Players
 onready var _selectors := $MainMenu/PlayerPickers
 onready var _playerpositions := $Gameplay/Positions/Playerpositions
@@ -55,7 +54,6 @@ func _process(_delta:float):
 	if _player1_color != "" and _player2_color != "" and _player_count > 0 and _level == 0:
 		$MainMenu/Startgame/Label.text = "Press     to Start"
 		if Input.is_action_just_pressed("start_game"):
-			_main_menu.hide()
 			emit_signal("game_started")
 			for x in _player_count:
 				var _Player := player.instance()

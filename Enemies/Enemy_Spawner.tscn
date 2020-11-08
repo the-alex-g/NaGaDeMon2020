@@ -95,11 +95,6 @@ shape = SubResource( 8 )
 [node name="SpawnLocation" type="Position2D" parent="SpawnLocationArm"]
 position = Vector2( 64, 0 )
 
-[node name="RayCast2D" type="RayCast2D" parent="SpawnLocationArm"]
-rotation = 4.71239
-enabled = true
-cast_to = Vector2( 0, 80 )
-
 [node name="AnimatedSprite" type="AnimatedSprite" parent="SpawnLocationArm"]
 position = Vector2( 40, 0.702 )
 scale = Vector2( 2, 1 )

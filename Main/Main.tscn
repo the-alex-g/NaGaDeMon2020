@@ -70,7 +70,8 @@ margin_right = 585.908
 margin_bottom = 494.0
 text = "Press     to start"
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
 [node name="Button" parent="MainMenu/Startgame/Label" instance=ExtResource( 5 )]

@@ -25,11 +25,14 @@ func _on_Timer_timeout():
 	if enemies < max_enemies and health > 0:
 		var Enemy := sword.instance() if type == "Sword" else ram.instance() if type == "Ram" else swarm.instance() if type == "Swarm" else hulk.instance()
 		_get_new_arm_location()
+		var alternate_position := Vector2(0,0)
+		var space_state := get_world_2d().direct_space_state
+		var result := space_state.intersect_ray(self.get_global_transform().origin, $SpawnLocationArm/SpawnLocation.get_global_transform().origin)
+		if result:
+			alternate_position = result.position
 		$SpawnLocationArm/AnimatedSprite.show()
 		$Timer2.start()
-		if $SpawnLocationArm/RayCast2D.is_colliding():
-			_get_new_arm_location()
-		Enemy.position = $SpawnLocationArm/SpawnLocation.get_global_transform().origin
+		Enemy.position = $SpawnLocationArm/SpawnLocation.get_global_transform().origin if alternate_position == Vector2.ZERO else alternate_position
 		var _error = Enemy.connect("died", self, "spawn_died")
 		emit_signal("create_enemy", Enemy)
 		enemies += 1
