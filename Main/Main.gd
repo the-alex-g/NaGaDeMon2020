@@ -29,6 +29,7 @@ signal game_started
 
 func _ready():
 	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
+	$AudioStreamPlayer.play()
 
 func _process(_delta:float):
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
@@ -169,7 +170,7 @@ func _spawner_cleared(level:String):
 func _on_Portal_entered(destination:int, location:int):
 	if get("L"+str(location)+"_exit_limit") == 0:
 		go_to_next_level(destination)
-		$Gameplay/AudioStreamPlayer2D.play()
+		#$Gameplay/AudioStreamPlayer2D.play()
 
 func go_to_next_level(level:int):
 	_level = level
