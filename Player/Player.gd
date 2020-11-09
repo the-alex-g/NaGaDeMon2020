@@ -16,6 +16,7 @@ var maxhealth := 3.0
 var health := 3.0
 var _damage := 1
 var swingdir := 1
+var acceleration_increment := 0.1
 var swinging := false
 var _light_colors := {"red":Color.red, "yellow":Color.yellow, "blue":Color(0,0.5,1,1), "green":Color.green}
 signal died
@@ -41,21 +42,18 @@ func _physics_process(delta):
 			velocity.x -= 1
 		if Input.is_action_pressed("right_"+player_number):
 			velocity.x += 1
-		if Input.is_action_pressed("Sword_Left_"+player_number):
-			swingdir = -1
-			swinging = true
-		elif Input.is_action_pressed("Sword_Right_"+player_number):
-			swingdir = 1
-			swinging = true
-		if Input.is_action_just_released("Sword_Left_"+player_number) or Input.is_action_just_released("Sword_Right_"+player_number):
-			swinging = false
-		if swinging:
-			if _swingspeed < maxswingspeed:
-				_swingspeed += 0.1
-		elif not swinging:
+		var sword_dir := Vector2(Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RX), Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RY)).angle()+deg2rad(90)
+		if sword_dir == 0:
 			if _swingspeed > minswingspeed:
-				_swingspeed -= 0.1
-		_sword.rotation_degrees += _swingspeed*swingdir
+				_swingspeed -= acceleration_increment
+		else:
+			if _swingspeed < maxswingspeed:
+				_swingspeed += acceleration_increment
+			if _sword.rotation > sword_dir and _sword.rotation_degrees < 180:
+				swingdir = -1
+			else:
+				swingdir = 1
+		_sword.rotation_degrees += swingdir*_swingspeed
 		var _error = move_and_collide(velocity.normalized()*delta*speed)
 		_sprite.rotation_degrees += 1
 		_error = $Tween.interpolate_property(_light, "energy", null, health/maxhealth, 0.25)
