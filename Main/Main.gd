@@ -30,6 +30,7 @@ signal game_started
 func _ready():
 	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
 	$AudioStreamPlayer.play()
+	OS.window_fullscreen = true
 
 func _process(_delta:float):
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
@@ -182,6 +183,7 @@ func _color_taken_back(color, id):
 func _create_enemy(enemy:Node2D):
 	$Gameplay/Enemies.add_child(enemy)
 
+
 func _spawner_cleared(level:String):
 	set("L"+level+"_exit_limit", get("L"+level+"_exit_limit")-1)
 
@@ -191,6 +193,7 @@ func _on_Portal_entered(destination:int, location:int):
 		#$Gameplay/AudioStreamPlayer2D.play()
 
 func go_to_next_level(level:int):
+	
 	_level = level
 	for player in _players.get_children():
 		player.position = _playerpositions.get_node("Position"+str(_level)+"_"+player.player_number).get_global_transform().origin
