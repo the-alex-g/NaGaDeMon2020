@@ -203,3 +203,6 @@ func go_to_next_level(level:int):
 func _on_NaGaDeMon_died():
 	yield(get_tree().create_timer(1), "timeout")
 	restart()
+
+func _on_Spawner_spawn_drop(drop):
+	$Gameplay/Drops.add_child(drop)

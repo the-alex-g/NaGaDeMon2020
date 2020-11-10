@@ -7,14 +7,14 @@ export var speed := 300.0
 onready var _sprite := $Sprite
 onready var _light := $Light2D
 onready var _tween := $Tween
-onready var _sword := $Sword
+onready var sword := $Weapon
 var player_color:String = "red"
 var player_number:String = "1"
 var VS = false
 var _swingspeed := 0.0
 var maxhealth := 3.0
 var health := 3.0
-var _damage := 1
+var ram := false
 var swingdir := 1
 var acceleration_increment := 0.1
 var swinging := false
@@ -42,6 +42,13 @@ func _physics_process(delta):
 			velocity.x -= 1
 		if Input.is_action_pressed("right_"+player_number):
 			velocity.x += 1
+		if Input.is_joy_button_pressed(int(player_number)-1, 0) and ram:
+			move_and_collide((Vector2(1,1).normalized()*200).rotated(deg2rad(sword.rotation_degrees-135)))
+			ram = false
+			yield(get_tree().create_timer(1), "timeout")
+			ram = true
+		if Input.is_joy_button_pressed(int(player_number)-1, 2):
+			new_weapon("Sword")
 		var sword_dir := Vector2(Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RX), Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RY)).angle()+deg2rad(90)
 		if sword_dir == 0:
 			if _swingspeed > minswingspeed:
@@ -49,11 +56,11 @@ func _physics_process(delta):
 		else:
 			if _swingspeed < maxswingspeed:
 				_swingspeed += acceleration_increment
-			if _sword.rotation > sword_dir and _sword.rotation_degrees < 180:
+			if sword.rotation > sword_dir:
 				swingdir = -1
 			else:
 				swingdir = 1
-		_sword.rotation_degrees += swingdir*_swingspeed
+		sword.rotation_degrees += swingdir*_swingspeed
 		var _error = move_and_collide(velocity.normalized()*delta*speed)
 		_sprite.rotation_degrees += 1
 		_error = $Tween.interpolate_property(_light, "energy", null, health/maxhealth, 0.25)
@@ -72,13 +79,6 @@ func ow(damage):
 			var _error = $Tween.interpolate_property(self, "modulate", null, Color(0.5,0.5,0.5,0.5), 0.5)
 			_error = $Tween.start()
 
-func _on_Area2D_body_entered(body):
-	if body.has_method("hit") and health > 0 and not VS:
-		body.hit(_damage)
-	elif VS and body.has_method("ow"):
-		if body.player_number != player_number:
-			body.ow(_damage)
-
 func _heal_area_entered(body):
 	if body.has_method("ow") and not VS:
 		if health <= 0:
@@ -92,3 +92,23 @@ func _on_Timer_timeout():
 	$CollisionShape2D.set_deferred("disabled", false)
 	var _error = $Tween.interpolate_property(self, "modulate", null, Color(1,1,1,1), 0.5)
 	_error = $Tween.start()
+
+func new_weapon(type:String):
+	if type == "Ram":
+		speed = 100
+		ram = true
+	elif type == "Hammer":
+		speed = 200
+		health += 3
+		maxhealth = 6
+	elif type != "Hammer" and sword.type == "Hammer":
+		speed = 300
+		if health > 3:
+			health = 3
+		elif health < 3:
+			health = 1
+		maxhealth = 3
+	elif type != "Ram" and sword.type == "Ram":
+		speed = 300
+		ram = false
+	sword.switch_type(type)

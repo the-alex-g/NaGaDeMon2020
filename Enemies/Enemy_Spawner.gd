@@ -1,5 +1,6 @@
 extends StaticBody2D
 
+const drop := preload("res://Enemies/Drop.tscn")
 const sword := preload("res://Enemies/Sword.tscn")
 const ram := preload("res://Enemies/Ram.tscn")
 const swarm := preload("res://Enemies/Swarm.tscn")
@@ -13,6 +14,7 @@ var max_enemies:int
 var rotate_dir := 0
 signal create_enemy(enemy)
 signal spawner_cleared(level)
+signal spawn_drop(drop)
 
 func _ready():
 	rotate_dir = -1 if randi()%2 == 0 else 1
@@ -55,6 +57,12 @@ func hit(damage):
 		$CollisionShape2D.set_deferred("disabled", true)
 		var _error = $Tween.interpolate_property(self, "modulate", null, Color(0,0,0,0), 0.5)
 		_error = $Tween.start()
+		if type != "Sword":
+			yield(get_tree().create_timer(0.5), "timeout")
+			var Drop = drop.instance()
+			Drop.position = self.get_global_transform().origin
+			Drop.type = type
+			emit_signal("spawn_drop", Drop)
 
 func _on_Area2D_body_entered(body):
 	if body is Player:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Art/Player_Light_Radius.png" type="Texture" id=1]
-[ext_resource path="res://Art/Player_Blade.png" type="Texture" id=2]
+[ext_resource path="res://Art/Weapons.png" type="Texture" id=2]
 [ext_resource path="res://Art/Enemies.png" type="Texture" id=3]
 [ext_resource path="res://Enemies/Enemy.gd" type="Script" id=4]
 [ext_resource path="res://SFX/EnemyDamaged.wav" type="AudioStream" id=5]
@@ -48,6 +48,8 @@ shape = SubResource( 2 )
 position = Vector2( 0, -16 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
+vframes = 2
+hframes = 2
 
 [node name="Area2D" type="Area2D" parent="Sword"]
 position = Vector2( 0, -16 )
