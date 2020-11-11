@@ -21,6 +21,7 @@ var swinging := false
 var _light_colors := {"red":Color.red, "yellow":Color.yellow, "blue":Color(0,0.5,1,1), "green":Color.green}
 signal died
 signal rejuvenated
+signal dropped_weapon(drop)
 
 func _ready():
 	_light.color = _light_colors[player_color]
@@ -111,4 +112,9 @@ func new_weapon(type:String):
 	elif type != "Ram" and sword.type == "Ram":
 		speed = 300
 		ram = false
+	if sword.type != "Sword":
+		var drope = load("res://Enemies/Drop.tscn").instance()
+		drope.type = sword.type
+		drope.position = Vector2(self.get_global_transform().origin.x+50, self.get_global_transform().origin.y)
+		emit_signal("dropped_weapon", drope)
 	sword.switch_type(type)

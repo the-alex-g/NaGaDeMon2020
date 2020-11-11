@@ -79,7 +79,8 @@ func _process(_delta:float):
 					else:
 						_Player.position = _playerpositions.get_node("PositionVS"+str(VS_level)+"_"+str(x+1)).get_global_transform().origin
 					var _error = _Player.connect("died", self, "_player_died")
-					var _error2 = _Player.connect("rejuvenated", self, "_player_lived")
+					_error = _Player.connect("rejuvenated", self, "_player_lived")
+					_error = _Player.connect("dropped_weapon", self, "_on_Spawner_spawn_drop")
 					_players.add_child(_Player)
 					if _player_count == 1:
 						_Player.health *= 2
