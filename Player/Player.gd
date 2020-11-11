@@ -43,7 +43,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("right_"+player_number):
 			velocity.x += 1
 		if Input.is_joy_button_pressed(int(player_number)-1, 0) and ram:
-			move_and_collide((Vector2(1,1).normalized()*200).rotated(deg2rad(sword.rotation_degrees-135)))
+			var _error = move_and_collide((Vector2(1,1).normalized()*200).rotated(deg2rad(sword.rotation_degrees-135)))
 			ram = false
 			yield(get_tree().create_timer(1), "timeout")
 			ram = true

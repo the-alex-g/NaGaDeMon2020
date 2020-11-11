@@ -6,6 +6,7 @@ onready var _players := $Gameplay/Players
 onready var _selectors := $MainMenu/PlayerPickers
 onready var _playerpositions := $Gameplay/Positions/Playerpositions
 onready var _camerapositions := $Gameplay/Positions/Camerapostions
+onready var _map := $TileMap
 onready var _camera := $Camera2D
 var _player_count := 0
 var VS = false
@@ -30,7 +31,13 @@ signal game_started
 func _ready():
 	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
 	$AudioStreamPlayer.play()
-	OS.window_fullscreen = true
+	#OS.window_fullscreen = true
+	print(str(_map.get_cellv(Vector2(0,0))))
+	for tile in _map.get_used_cells():
+		if _map.get_cell(tile.x,tile.y) == 0:
+			_map.set_cellv(tile, 6+randi()%4)
+		elif _map.get_cellv(tile) == 1:
+			_map.set_cellv(tile, 2+randi()%4)
 
 func _process(_delta:float):
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
@@ -53,7 +60,7 @@ func _process(_delta:float):
 		_player_count += 1
 		_player4_color = ""
 		$MainMenu/AudioStreamPlayer2D.play()
-	if Input.is_action_just_pressed("Toggle_VS"):
+	if Input.is_action_just_pressed("Toggle_VS") and _player_count > 1:
 		VS = !VS
 		$MainMenu/Startgame/Coop.text = "Versus" if VS else "Cooprative"
 	if _player1_color != "" and _player2_color != "" and _player_count > 0 and _level == 0:
