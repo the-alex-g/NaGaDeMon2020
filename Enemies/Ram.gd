@@ -56,7 +56,7 @@ func hit(damage):
 		queue_free()
 
 func _on_Area2D_body_entered(body):
-	if body is Player:
+	if body is Player and health > 0:
 		body.ow(_damage)
 
 func _on_Timer_timeout():

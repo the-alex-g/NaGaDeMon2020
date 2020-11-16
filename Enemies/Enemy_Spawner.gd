@@ -10,6 +10,7 @@ export var level := "1"
 var health := 5
 var enemies := 0
 var spawn_rate := 1.0
+var dead := false
 var max_enemies:int
 var rotate_dir := 0
 signal create_enemy(enemy)
@@ -24,7 +25,7 @@ func _process(_delta):
 	$Sprite.rotation_degrees += rotate_dir
 
 func _on_Timer_timeout():
-	if enemies < max_enemies and health > 0:
+	if enemies < max_enemies and not dead:
 		var Enemy := sword.instance() if type == "Sword" else ram.instance() if type == "Ram" else swarm.instance() if type == "Swarm" else hulk.instance()
 		_get_new_arm_location()
 		var alternate_position := Vector2(0,0)
@@ -53,7 +54,8 @@ func hit(damage):
 	health -= damage
 	if health > 0:
 		$AudioStreamPlayer2D.play()
-	if health <= 0:
+	if health <= 0 and not dead:
+		dead = true
 		$CollisionShape2D.set_deferred("disabled", true)
 		var _error = $Tween.interpolate_property(self, "modulate", null, Color(0,0,0,0), 0.5)
 		_error = $Tween.start()
