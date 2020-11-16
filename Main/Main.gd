@@ -32,7 +32,6 @@ func _ready():
 	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
 	$AudioStreamPlayer.play()
 	#OS.window_fullscreen = true
-	print(str(_map.get_cellv(Vector2(0,0))))
 	for tile in _map.get_used_cells():
 		if _map.get_cell(tile.x,tile.y) == 0:
 			_map.set_cellv(tile, 6+randi()%4)
