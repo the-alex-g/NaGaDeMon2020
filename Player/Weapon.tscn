@@ -52,7 +52,7 @@ position = Vector2( 0, -32 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Blade1"]
 frames = SubResource( 5 )
-animation = "Hulk"
+animation = "Sword"
 
 [node name="Area2D" type="Area2D" parent="Blade1"]
 collision_layer = 7
@@ -67,7 +67,7 @@ rotation = 3.14159
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Blade2"]
 frames = SubResource( 5 )
-animation = "Hulk"
+animation = "Sword"
 
 [node name="Area2D" type="Area2D" parent="Blade2"]
 collision_layer = 7

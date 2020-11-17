@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Art/Tiles.png" type="Texture" id=1]
 [ext_resource path="res://Main/Main.gd" type="Script" id=2]
@@ -12,6 +12,11 @@
 [ext_resource path="res://Music.ogg" type="AudioStream" id=10]
 [ext_resource path="res://Art/Player_Light_Radius.png" type="Texture" id=11]
 [ext_resource path="res://Art/Instructor.png" type="Texture" id=12]
+[ext_resource path="res://Fonts/IMFellEnglishSC-Regular.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://Art/Ram.png" type="Texture" id=14]
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 13 )
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -216,6 +221,47 @@ texture = ExtResource( 11 )
 position = Vector2( 928, -96 )
 location = 0
 destination = 1
+
+[node name="Label" type="Label" parent="MainMenu/Instrux"]
+margin_left = 352.0
+margin_top = -480.0
+margin_right = 573.0
+margin_bottom = -388.0
+custom_fonts/font = SubResource( 6 )
+text = "Use the left stick to move
+and the right stick to swing your weapon!
+Go through portals to make your way
+through the dungeon and defeat the
+NaGa DeMon!!!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="MainMenu/Instrux"]
+margin_left = 704.0
+margin_top = -352.0
+margin_right = 1021.0
+margin_bottom = -235.0
+custom_fonts/font = SubResource( 6 )
+text = "If you find a weapon that looks like this,
+you can press       to charge in the direction
+your weapon is pointing.
+You can press       at any time
+to drop your weapon and go back to the sword!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" parent="MainMenu/Instrux/Label2" instance=ExtResource( 5 )]
+position = Vector2( 100, 36 )
+
+[node name="Button2" parent="MainMenu/Instrux/Label2" instance=ExtResource( 5 )]
+position = Vector2( 105, 83 )
+type = "X1"
+
+[node name="Ram" type="Sprite" parent="MainMenu/Instrux"]
+position = Vector2( 960, -288 )
+texture = ExtResource( 14 )
 
 [node name="PlayerPickers" type="Node2D" parent="MainMenu"]
 

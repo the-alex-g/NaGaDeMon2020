@@ -19,6 +19,7 @@ var _swingspeed3 := 0.0
 var _rotate_dir := -1
 var lives := 3
 export var health := 5.0
+var maxhealth := 5.0
 export var _damage := 1.0
 var should_move := false
 signal died
@@ -68,8 +69,10 @@ func hit(damage):
 		get_node("Heads/Head"+str(lives)).hide()
 		get_node("Heads/Head"+str(lives)+"/Area2D/CollisionShape2D").set_deferred("disabled", true)
 		lives -= 1
-		#emit_signal("died")
-		hide()
+		health = 5-lives%3
+		if lives <= 0:
+			emit_signal("died")
+			hide()
 
 func _on_Area2D_body_entered(body):
 	if body is Player:
