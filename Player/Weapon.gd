@@ -12,8 +12,8 @@ func _ready():
 func switch_type(new_type:String):
 	type = new_type
 	sprite.play(type)
-	if type == "Dual":
-		_blade2_collider.disabled = false
+	if type == "Swarm":
+		_blade2_collider.set_deferred("disabled", false)
 		_blade2.visible = true
 		damage = 0.5
 	else:

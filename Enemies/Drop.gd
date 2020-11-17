@@ -8,7 +8,7 @@ func _ready():
 
 func change_type():
 	$Blade1/AnimatedSprite.play(type)
-	if type == "Dual":
+	if type == "Swarm":
 		$Blade2.visible = true
 	else:
 		$Blade2.visible = false

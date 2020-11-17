@@ -15,6 +15,7 @@ var _player2_color:String = "not"
 var _player3_color:String = "not"
 var _player4_color:String = "not"
 var _level := 0
+var L0_exit_limit := 0
 var L1_exit_limit := 1
 var L2_exit_limit := 2
 var L3_exit_limit := 1
@@ -74,7 +75,7 @@ func _process(_delta:float):
 					_Player.player_color = get("_player"+str(x+1)+"_color")
 					_Player.VS = VS
 					if not VS:
-						_Player.position = _playerpositions.get_node("Position1_"+str(x+1)).get_global_transform().origin
+						_Player.position = _playerpositions.get_node("Position0_"+str(x+1)).get_global_transform().origin
 					else:
 						_Player.position = _playerpositions.get_node("PositionVS"+str(VS_level)+"_"+str(x+1)).get_global_transform().origin
 					var _error = _Player.connect("died", self, "_player_died")
@@ -85,7 +86,7 @@ func _process(_delta:float):
 						_Player.health *= 2
 						_Player.maxhealth *= 2
 				if not VS:
-					_camera.position = _camerapositions.get_node("Position2").get_global_transform().origin
+					_camera.position = _camerapositions.get_node("Position11").get_global_transform().origin
 				else:
 					_camera.position = _camerapositions.get_node("PositionVS"+str(VS_level)).get_global_transform().origin
 				_level = 1
@@ -150,21 +151,24 @@ func restart():
 	L3_exit_limit = 1
 	L4_exit_limit = 2
 	L5_exit_limit = 3
-	L6_exit_limit = 0
-	L7_exit_limit = 0
-	L8_exit_limit = 0
+	L6_exit_limit = 5
+	L7_exit_limit = 3
+	L8_exit_limit = 4
 	for spawner in $Gameplay/Spawners.get_children():
 		spawner.get_node("CollisionShape2D").disabled = false
 		spawner.modulate = Color(1,1,1,1)
 		spawner.enemies = 0
 		spawner.health = 5
 		spawner.get_node("Timer").stop()
+		spawner.dead = false
 	_camera.position = _camerapositions.get_node("Position1").get_global_transform().origin
 	for x in 4:
 		set("_player"+str(x+1)+"_color", "not")
 	_player_count = 0
 	players_left = 0
 	$MainMenu.show()
+	for drop in $Gameplay/Drops.get_children():
+		drop.queue_free()
 	for enemy in $Gameplay/Enemies.get_children():
 		enemy.queue_free()
 	$Gameplay/NaGaDeMon.health = 5
