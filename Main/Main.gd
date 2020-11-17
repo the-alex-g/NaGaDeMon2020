@@ -97,8 +97,7 @@ func _process(_delta:float):
 						spawner.max_enemies /= 2
 					elif spawner.type == "Swarm":
 						spawner.spawn_rate /= 2
-					elif spawner.type == "Hulk":
-						spawner.spawn_rate *= 2
+						spawner.max_enemies *= 1.5
 				$Gameplay/NaGaDeMon.health *= _player_count
 				players_left = _player_count
 	else:

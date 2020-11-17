@@ -66,13 +66,13 @@ func _process(delta):
 func hit(damage):
 	health -= damage
 	if health <= 0:
-		get_node("Heads/Head"+str(lives)).hide()
-		get_node("Heads/Head"+str(lives)+"/Area2D/CollisionShape2D").set_deferred("disabled", true)
-		lives -= 1
-		health = 5-lives%3
-		if lives <= 0:
-			emit_signal("died")
-			hide()
+		#get_node("Heads/Head"+str(lives)).hide()
+		#get_node("Heads/Head"+str(lives)+"/Area2D/CollisionShape2D").set_deferred("disabled", true)
+		#lives -= 1
+		#health = 5-lives%3
+		#if lives <= 0:
+		emit_signal("died")
+		hide()
 
 func _on_Area2D_body_entered(body):
 	if body is Player:

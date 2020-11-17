@@ -507,7 +507,6 @@ position = Vector2( 3648, 256 )
 
 [node name="Spawner" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 1536, 304 )
-type = "Swarm"
 
 [node name="Spawner2" parent="Gameplay/Spawners" instance=ExtResource( 3 )]
 position = Vector2( 2272, 128 )
