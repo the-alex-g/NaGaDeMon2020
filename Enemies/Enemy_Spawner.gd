@@ -63,7 +63,7 @@ func hit(damage):
 			yield(get_tree().create_timer(0.5), "timeout")
 			var Drop = drop.instance()
 			Drop.position = self.get_global_transform().origin
-			Drop.type = type
+			Drop.diff_weapon(type)
 			emit_signal("spawn_drop", Drop)
 
 func _on_Area2D_body_entered(body):

@@ -20,7 +20,7 @@ func switch_type(new_type:String):
 		_blade2_collider.set_deferred("disabled", true)
 		_blade2.visible = false
 		damage = 1
-	if type == "Hammer":
+	if type == "Hulk":
 		damage = 1.5
 	elif type == "Ram":
 		damage = 2

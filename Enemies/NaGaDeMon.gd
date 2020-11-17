@@ -17,6 +17,7 @@ var _swingspeed1 := 0.0
 var _swingspeed2 := 0.0
 var _swingspeed3 := 0.0
 var _rotate_dir := -1
+var lives := 3
 export var health := 5.0
 export var _damage := 1.0
 var should_move := false
@@ -64,7 +65,10 @@ func _process(delta):
 func hit(damage):
 	health -= damage
 	if health <= 0:
-		emit_signal("died")
+		get_node("Heads/Head"+str(lives)).hide()
+		get_node("Heads/Head"+str(lives)+"/Area2D/CollisionShape2D").set_deferred("disabled", true)
+		lives -= 1
+		#emit_signal("died")
 		hide()
 
 func _on_Area2D_body_entered(body):

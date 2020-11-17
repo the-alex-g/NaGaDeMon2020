@@ -49,7 +49,8 @@ func _physics_process(delta):
 			yield(get_tree().create_timer(1), "timeout")
 			ram = true
 		if Input.is_joy_button_pressed(int(player_number)-1, 2):
-			new_weapon("Sword")
+			new_weapon("Sword", true)
+			print("dropped a weapon")
 		var sword_dir := Vector2(Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RX), Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RY)).angle()+deg2rad(90)
 		sword.rotation = sword_dir
 #		if sword_dir == 0:
@@ -95,7 +96,7 @@ func _on_Timer_timeout():
 	var _error = $Tween.interpolate_property(self, "modulate", null, Color(1,1,1,1), 0.5)
 	_error = $Tween.start()
 
-func new_weapon(type:String):
+func new_weapon(type:String, dropped:bool = false):
 	if type == "Ram":
 		speed = 100
 		ram = true
@@ -113,7 +114,7 @@ func new_weapon(type:String):
 	elif type != "Ram" and sword.type == "Ram":
 		speed = 300
 		ram = false
-	if sword.type != "Sword":
+	if sword.type != "Sword" and dropped:
 		var drope = load("res://Enemies/Drop.tscn").instance()
 		drope.type = sword.type
 		drope.position = Vector2(self.get_global_transform().origin.x+50, self.get_global_transform().origin.y)
