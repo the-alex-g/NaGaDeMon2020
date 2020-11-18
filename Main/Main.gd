@@ -8,6 +8,10 @@ onready var _playerpositions := $Gameplay/Positions/Playerpositions
 onready var _camerapositions := $Gameplay/Positions/Camerapostions
 onready var _map := $TileMap
 onready var _camera := $Camera2D
+onready var _sword := $MainMenu/Instrux/Sword_Demonstrator/Node2D
+onready var _move := $MainMenu/Instrux/Movement_Demonstrator
+onready var _movestick := $MainMenu/Instrux/Leftstick
+onready var _swordstick := $MainMenu/Instrux/Rightstick
 var _player_count := 0
 var VS = false
 var _player1_color:String = "not"
@@ -40,6 +44,9 @@ func _ready():
 			_map.set_cellv(tile, 2+randi()%4)
 
 func _process(_delta:float):
+	_move.position.y += 1 if _movestick.frame == 1 else -1 if _movestick.frame == 3 else -1 if _movestick.frame == 2 else 1 if _movestick.frame == 4 else 0
+	_move.position.x += 1 if _movestick.frame == 5 else -1 if _movestick.frame == 7 else -1 if _movestick.frame == 6 else 1 if _movestick.frame == 0 else 0
+	_sword.rotation_degrees = 0 if _swordstick.frame == 5 else 90 if _swordstick.frame == 3 else 180 if _swordstick.frame == 7 else 270 if _swordstick.frame == 1 else _sword.rotation_degrees
 	if Input.is_action_just_pressed("select_1") and _player1_color == "not":
 		_add_player_selector(1)
 		_player_count += 1

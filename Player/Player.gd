@@ -7,7 +7,7 @@ export var speed := 300.0
 onready var _sprite := $Sprite
 onready var _light := $Light2D
 onready var _tween := $Tween
-onready var sword := $Weapon
+onready var sword:Node2D = $Weapon
 var player_color:String = "red"
 var player_number:String = "1"
 var VS = false
@@ -50,19 +50,17 @@ func _physics_process(delta):
 			ram = true
 		if Input.is_joy_button_pressed(int(player_number)-1, 2):
 			new_weapon("Sword", true)
-			print("dropped a weapon")
-		var sword_dir := Vector2(Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RX), Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RY)).angle()+deg2rad(90)
-		sword.rotation = sword_dir
-#		if sword_dir == 0:
-#			if _swingspeed > minswingspeed:
-#				_swingspeed -= acceleration_increment
-#		else:
-#			if _swingspeed < maxswingspeed:
-#				_swingspeed += acceleration_increment
-#			if sword.rotation > sword_dir:
-#				swingdir = -1
-#			else:
-#				swingdir = 1
+		var sword_dir := rad2deg(Vector2(Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RX), Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RY)).angle())-270
+		if sword_dir == 0:
+			if _swingspeed > minswingspeed:
+				_swingspeed -= acceleration_increment
+		else:
+			if _swingspeed < maxswingspeed:
+				_swingspeed += acceleration_increment
+			if sword_dir > fmod(sword.rotation_degrees, 360):
+				swingdir = 1
+			elif sword_dir < fmod(sword.rotation_degrees, 360):
+				swingdir = -1
 		sword.rotation_degrees += swingdir*_swingspeed
 		var _error = move_and_collide(velocity.normalized()*delta*speed)
 		_sprite.rotation_degrees += 1

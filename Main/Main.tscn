@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Art/Tiles.png" type="Texture" id=1]
 [ext_resource path="res://Main/Main.gd" type="Script" id=2]
@@ -12,25 +12,78 @@
 [ext_resource path="res://Music.ogg" type="AudioStream" id=10]
 [ext_resource path="res://Art/Player_Light_Radius.png" type="Texture" id=11]
 [ext_resource path="res://Art/Instructor.png" type="Texture" id=12]
-[ext_resource path="res://Fonts/IMFellEnglishSC-Regular.ttf" type="DynamicFontData" id=13]
-[ext_resource path="res://Art/Ram.png" type="Texture" id=14]
+[ext_resource path="res://Art/Player_Blade.png" type="Texture" id=13]
+[ext_resource path="res://Art/Buttons.png" type="Texture" id=14]
 
-[sub_resource type="DynamicFont" id=6]
-font_data = ExtResource( 13 )
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 14 )
+region = Rect2( 68, 68, 34, 34 )
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 14 )
+region = Rect2( 102, 68, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 102, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 14 )
+region = Rect2( 34, 102, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 14 )
+region = Rect2( 68, 102, 34, 34 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 1 ), SubResource( 3 ), SubResource( 1 ), SubResource( 4 ), SubResource( 1 ), SubResource( 5 ) ],
+"loop": true,
+"name": "Default",
+"speed": 3.0
+} ]
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 14 )
+region = Rect2( 102, 102, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 136, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 14 )
+region = Rect2( 102, 136, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 14 )
+region = Rect2( 34, 136, 34, 34 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 14 )
+region = Rect2( 68, 136, 34, 34 )
+
+[sub_resource type="SpriteFrames" id=17]
+animations = [ {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 12 ), SubResource( 16 ), SubResource( 12 ), SubResource( 14 ), SubResource( 12 ), SubResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
-[sub_resource type="ConvexPolygonShape2D" id=4]
+[sub_resource type="ConvexPolygonShape2D" id=10]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
-[sub_resource type="TileSet" id=5]
+[sub_resource type="TileSet" id=11]
 0/name = "Tiles.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
@@ -125,14 +178,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 6/navigation_offset = Vector2( 0, 0 )
 6/shape_offset = Vector2( 0, 0 )
 6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-6/shape = SubResource( 1 )
+6/shape = SubResource( 7 )
 6/shape_one_way = false
 6/shape_one_way_margin = 1.0
 6/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 1 ),
+"shape": SubResource( 7 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 6/z_index = 0
@@ -146,14 +199,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 7/navigation_offset = Vector2( 0, 0 )
 7/shape_offset = Vector2( 0, 0 )
 7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-7/shape = SubResource( 2 )
+7/shape = SubResource( 8 )
 7/shape_one_way = false
 7/shape_one_way_margin = 1.0
 7/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 8 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 7/z_index = 0
@@ -167,14 +220,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 8/navigation_offset = Vector2( 0, 0 )
 8/shape_offset = Vector2( 0, 0 )
 8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-8/shape = SubResource( 3 )
+8/shape = SubResource( 9 )
 8/shape_one_way = false
 8/shape_one_way_margin = 1.0
 8/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 3 ),
+"shape": SubResource( 9 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 8/z_index = 0
@@ -188,14 +241,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 9/navigation_offset = Vector2( 0, 0 )
 9/shape_offset = Vector2( 0, 0 )
 9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-9/shape = SubResource( 4 )
+9/shape = SubResource( 10 )
 9/shape_one_way = false
 9/shape_one_way_margin = 1.0
 9/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 4 ),
+"shape": SubResource( 10 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 9/z_index = 0
@@ -210,58 +263,52 @@ __meta__ = {
 
 [node name="Instrux" type="Node2D" parent="MainMenu"]
 
-[node name="Instructor" type="Sprite" parent="MainMenu/Instrux"]
-position = Vector2( 288, -416 )
+[node name="Rightstick" type="AnimatedSprite" parent="MainMenu/Instrux"]
+position = Vector2( 736, -320 )
+frames = SubResource( 6 )
+animation = "Default"
+frame = 6
+playing = true
+
+[node name="Leftstick" type="AnimatedSprite" parent="MainMenu/Instrux"]
+position = Vector2( 288, -320 )
+frames = SubResource( 17 )
+frame = 6
+playing = true
+
+[node name="Movement_Demonstrator" type="Node2D" parent="MainMenu/Instrux"]
+position = Vector2( 352, -320 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Sprite" type="Sprite" parent="MainMenu/Instrux/Movement_Demonstrator"]
 texture = ExtResource( 12 )
 
-[node name="Light2D" type="Light2D" parent="MainMenu/Instrux/Instructor"]
+[node name="Light2D" type="Light2D" parent="MainMenu/Instrux/Movement_Demonstrator/Sprite"]
 texture = ExtResource( 11 )
+energy = 0.75
 
-[node name="Portal" parent="MainMenu/Instrux" instance=ExtResource( 4 )]
-position = Vector2( 928, -96 )
-location = 0
-destination = 1
+[node name="Node2D" type="Node2D" parent="MainMenu/Instrux/Movement_Demonstrator"]
 
-[node name="Label" type="Label" parent="MainMenu/Instrux"]
-margin_left = 352.0
-margin_top = -480.0
-margin_right = 573.0
-margin_bottom = -388.0
-custom_fonts/font = SubResource( 6 )
-text = "Use the left stick to move
-and the right stick to swing your weapon!
-Go through portals to make your way
-through the dungeon and defeat the
-NaGa DeMon!!!!!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Sprite" type="Sprite" parent="MainMenu/Instrux/Movement_Demonstrator/Node2D"]
+position = Vector2( 0, -32 )
+texture = ExtResource( 13 )
 
-[node name="Label2" type="Label" parent="MainMenu/Instrux"]
-margin_left = 704.0
-margin_top = -352.0
-margin_right = 1021.0
-margin_bottom = -235.0
-custom_fonts/font = SubResource( 6 )
-text = "If you find a weapon that looks like this,
-you can press       to charge in the direction
-your weapon is pointing.
-You can press       at any time
-to drop your weapon and go back to the sword!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Sword_Demonstrator" type="Node2D" parent="MainMenu/Instrux"]
+position = Vector2( 672, -320 )
+scale = Vector2( 0.5, 0.5 )
 
-[node name="Button" parent="MainMenu/Instrux/Label2" instance=ExtResource( 5 )]
-position = Vector2( 100, 36 )
+[node name="Sprite" type="Sprite" parent="MainMenu/Instrux/Sword_Demonstrator"]
+texture = ExtResource( 12 )
 
-[node name="Button2" parent="MainMenu/Instrux/Label2" instance=ExtResource( 5 )]
-position = Vector2( 105, 83 )
-type = "X1"
+[node name="Light2D" type="Light2D" parent="MainMenu/Instrux/Sword_Demonstrator/Sprite"]
+texture = ExtResource( 11 )
+energy = 0.75
 
-[node name="Ram" type="Sprite" parent="MainMenu/Instrux"]
-position = Vector2( 960, -288 )
-texture = ExtResource( 14 )
+[node name="Node2D" type="Node2D" parent="MainMenu/Instrux/Sword_Demonstrator"]
+
+[node name="Sprite" type="Sprite" parent="MainMenu/Instrux/Sword_Demonstrator/Node2D"]
+position = Vector2( 0, -32 )
+texture = ExtResource( 13 )
 
 [node name="PlayerPickers" type="Node2D" parent="MainMenu"]
 
@@ -604,6 +651,11 @@ level = "8"
 [node name="Portals" type="Node2D" parent="Gameplay"]
 
 [node name="Portal" parent="Gameplay/Portals" instance=ExtResource( 4 )]
+position = Vector2( 496, -544 )
+location = 0
+destination = 1
+
+[node name="Portal10" parent="Gameplay/Portals" instance=ExtResource( 4 )]
 position = Vector2( 1984, 288 )
 
 [node name="Portal2" parent="Gameplay/Portals" instance=ExtResource( 4 )]
@@ -615,7 +667,6 @@ destination = 3
 position = Vector2( 2976, 512 )
 location = 2
 destination = 4
-portal_number = 2
 
 [node name="Portal4" parent="Gameplay/Portals" instance=ExtResource( 4 )]
 position = Vector2( 928, 1120 )
@@ -636,7 +687,6 @@ destination = 6
 position = Vector2( 2976, 672 )
 location = 5
 destination = 7
-portal_number = 2
 
 [node name="Portal8" parent="Gameplay/Portals" instance=ExtResource( 4 )]
 position = Vector2( 496, 1504 )
@@ -650,6 +700,7 @@ destination = 8
 
 [node name="Bossdoor" parent="Gameplay/Portals" instance=ExtResource( 7 )]
 position = Vector2( 3040, 1504 )
+portal_number = 3
 
 [node name="NaGaDeMon" parent="Gameplay" instance=ExtResource( 6 )]
 position = Vector2( 3872, 1520 )
@@ -662,7 +713,7 @@ attenuation = 0.125
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -2
-tile_set = SubResource( 5 )
+tile_set = SubResource( 11 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 7
 collision_mask = 7
@@ -675,7 +726,6 @@ current = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
-[connection signal="entered" from="MainMenu/Instrux/Portal" to="." method="_on_Portal_entered"]
 [connection signal="create_enemy" from="Gameplay/Spawners/Spawner" to="." method="_create_enemy"]
 [connection signal="spawn_drop" from="Gameplay/Spawners/Spawner" to="." method="_on_Spawner_spawn_drop"]
 [connection signal="spawner_cleared" from="Gameplay/Spawners/Spawner" to="." method="_spawner_cleared"]
@@ -740,6 +790,7 @@ stream = ExtResource( 10 )
 [connection signal="spawn_drop" from="Gameplay/Spawners/Spawner21" to="." method="_on_Spawner_spawn_drop"]
 [connection signal="spawner_cleared" from="Gameplay/Spawners/Spawner21" to="." method="_spawner_cleared"]
 [connection signal="entered" from="Gameplay/Portals/Portal" to="." method="_on_Portal_entered"]
+[connection signal="entered" from="Gameplay/Portals/Portal10" to="." method="_on_Portal_entered"]
 [connection signal="entered" from="Gameplay/Portals/Portal2" to="." method="_on_Portal_entered"]
 [connection signal="entered" from="Gameplay/Portals/Portal3" to="." method="_on_Portal_entered"]
 [connection signal="entered" from="Gameplay/Portals/Portal4" to="." method="_on_Portal_entered"]
@@ -748,4 +799,5 @@ stream = ExtResource( 10 )
 [connection signal="entered" from="Gameplay/Portals/Portal7" to="." method="_on_Portal_entered"]
 [connection signal="entered" from="Gameplay/Portals/Portal8" to="." method="_on_Portal_entered"]
 [connection signal="entered" from="Gameplay/Portals/Portal9" to="." method="_on_Portal_entered"]
+[connection signal="entered" from="Gameplay/Portals/Bossdoor" to="." method="_on_Portal_entered"]
 [connection signal="died" from="Gameplay/NaGaDeMon" to="." method="_on_NaGaDeMon_died"]

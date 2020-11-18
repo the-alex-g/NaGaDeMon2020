@@ -9,7 +9,6 @@ extents = Vector2( 16, 80 )
 script = ExtResource( 1 )
 location = 8
 destination = 9
-portal_number = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 16, 16 )
