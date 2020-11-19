@@ -51,17 +51,18 @@ func _physics_process(delta):
 		if Input.is_joy_button_pressed(int(player_number)-1, 2):
 			new_weapon("Sword", true)
 		var sword_dir := rad2deg(Vector2(Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RX), Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RY)).angle())-270
-		if sword_dir == 0:
-			if _swingspeed > minswingspeed:
-				_swingspeed -= acceleration_increment
-		else:
-			if _swingspeed < maxswingspeed:
-				_swingspeed += acceleration_increment
-			if sword_dir > fmod(sword.rotation_degrees, 360):
-				swingdir = 1
-			elif sword_dir < fmod(sword.rotation_degrees, 360):
-				swingdir = -1
-		sword.rotation_degrees += swingdir*_swingspeed
+		sword.rotation_degrees = sword_dir
+#		if sword_dir == 0:
+#			if _swingspeed > minswingspeed:
+#				_swingspeed -= acceleration_increment
+#		else:
+#			if _swingspeed < maxswingspeed:
+#				_swingspeed += acceleration_increment
+#			if sword_dir > fmod(sword.rotation_degrees, 360):
+#				swingdir = 1
+#			elif sword_dir < fmod(sword.rotation_degrees, 360):
+#				swingdir = -1
+#		sword.rotation_degrees += swingdir*_swingspeed
 		var _error = move_and_collide(velocity.normalized()*delta*speed)
 		_sprite.rotation_degrees += 1
 		_error = $Tween.interpolate_property(_light, "energy", null, health/maxhealth, 0.25)
