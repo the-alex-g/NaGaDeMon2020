@@ -45,15 +45,16 @@ func _process(delta):
 					if body.health > 0:
 						if abs((body.get_global_transform().origin - get_global_transform().origin).length_squared()) < abs((_target.get_global_transform().origin-get_global_transform().origin).length_squared()) or _target == null:
 							_target = body
-			if _target.health <= 0:
-				_target = null
-				should_move = false
-				for body in _sight.get_overlapping_bodies():
-					if body is Player:
-						if body.health != 0:
-							_target = body
-							should_move = true
-							break
+			if _target != null:
+				if _target.health <= 0:
+					_target = null
+					should_move = false
+					for body in _sight.get_overlapping_bodies():
+						if body is Player:
+							if body.health != 0:
+								_target = body
+								should_move = true
+								break
 		for x in _heads.get_child_count():
 			if get("swinging"+str(x+1)):
 				if get("_swingspeed"+str(x+1)) < maxswingspeed:
@@ -72,6 +73,8 @@ func hit(damage):
 		#health = 5-lives%3
 		#if lives <= 0:
 		emit_signal("died")
+		_target = null
+		should_move = false
 		hide()
 
 func _on_Area2D_body_entered(body):

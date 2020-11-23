@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Art/Tiles.png" type="Texture" id=1]
 [ext_resource path="res://Main/Main.gd" type="Script" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://Art/Instructor.png" type="Texture" id=12]
 [ext_resource path="res://Art/Player_Blade.png" type="Texture" id=13]
 [ext_resource path="res://Art/Buttons.png" type="Texture" id=14]
+[ext_resource path="res://Fonts/Oregano/Oregano-Regular.ttf" type="DynamicFontData" id=15]
+[ext_resource path="res://Fonts/Font.tres" type="DynamicFont" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 14 )
@@ -71,8 +73,9 @@ animations = [ {
 "speed": 3.0
 } ]
 
-[sub_resource type="ConvexPolygonShape2D" id=13]
-points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+[sub_resource type="DynamicFont" id=13]
+size = 100
+font_data = ExtResource( 15 )
 
 [sub_resource type="ConvexPolygonShape2D" id=14]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -83,7 +86,10 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [sub_resource type="ConvexPolygonShape2D" id=16]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
-[sub_resource type="TileSet" id=17]
+[sub_resource type="ConvexPolygonShape2D" id=17]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="TileSet" id=18]
 0/name = "Tiles.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
@@ -178,14 +184,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 6/navigation_offset = Vector2( 0, 0 )
 6/shape_offset = Vector2( 0, 0 )
 6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-6/shape = SubResource( 13 )
+6/shape = SubResource( 14 )
 6/shape_one_way = false
 6/shape_one_way_margin = 1.0
 6/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 13 ),
+"shape": SubResource( 14 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 6/z_index = 0
@@ -199,14 +205,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 7/navigation_offset = Vector2( 0, 0 )
 7/shape_offset = Vector2( 0, 0 )
 7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-7/shape = SubResource( 14 )
+7/shape = SubResource( 15 )
 7/shape_one_way = false
 7/shape_one_way_margin = 1.0
 7/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 14 ),
+"shape": SubResource( 15 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 7/z_index = 0
@@ -220,14 +226,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 8/navigation_offset = Vector2( 0, 0 )
 8/shape_offset = Vector2( 0, 0 )
 8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-8/shape = SubResource( 15 )
+8/shape = SubResource( 16 )
 8/shape_one_way = false
 8/shape_one_way_margin = 1.0
 8/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 15 ),
+"shape": SubResource( 16 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 8/z_index = 0
@@ -241,14 +247,14 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 9/navigation_offset = Vector2( 0, 0 )
 9/shape_offset = Vector2( 0, 0 )
 9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-9/shape = SubResource( 16 )
+9/shape = SubResource( 17 )
 9/shape_one_way = false
 9/shape_one_way_margin = 1.0
 9/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 16 ),
+"shape": SubResource( 17 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 9/z_index = 0
@@ -267,13 +273,13 @@ __meta__ = {
 position = Vector2( 736, -320 )
 frames = SubResource( 6 )
 animation = "Default"
-frame = 6
+frame = 2
 playing = true
 
 [node name="Leftstick" type="AnimatedSprite" parent="MainMenu/Instrux"]
 position = Vector2( 288, -320 )
 frames = SubResource( 12 )
-frame = 6
+frame = 2
 playing = true
 
 [node name="Movement_Demonstrator" type="Node2D" parent="MainMenu/Instrux"]
@@ -319,6 +325,7 @@ margin_left = 460.908
 margin_top = 480.0
 margin_right = 585.908
 margin_bottom = 494.0
+custom_fonts/font = ExtResource( 16 )
 text = "Press     to start"
 __meta__ = {
 "_edit_use_anchors_": false,
@@ -326,13 +333,14 @@ __meta__ = {
 }
 
 [node name="Button" parent="MainMenu/Startgame/Label" instance=ExtResource( 5 )]
-position = Vector2( 45.306, 6.60712 )
+position = Vector2( 48.6772, 16.3461 )
 
 [node name="Toggle" type="Label" parent="MainMenu/Startgame"]
-margin_left = 432.797
-margin_top = 544.707
-margin_right = 584.797
-margin_bottom = 558.707
+margin_left = 430.175
+margin_top = 538.714
+margin_right = 586.175
+margin_bottom = 565.714
+custom_fonts/font = ExtResource( 16 )
 text = "Press     to toggle mode"
 __meta__ = {
 "_edit_use_anchors_": false,
@@ -340,7 +348,7 @@ __meta__ = {
 }
 
 [node name="Button" parent="MainMenu/Startgame/Toggle" instance=ExtResource( 5 )]
-position = Vector2( 45.306, 6.60712 )
+position = Vector2( 48.3026, 15.597 )
 type = "X1"
 
 [node name="Coop" type="Label" parent="MainMenu/Startgame"]
@@ -348,7 +356,24 @@ margin_left = 480.0
 margin_top = 512.0
 margin_right = 548.0
 margin_bottom = 526.0
+custom_fonts/font = ExtResource( 16 )
 text = "Cooprative"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Light2D" type="Light2D" parent="MainMenu/Startgame"]
+position = Vector2( 538.263, 66.3784 )
+texture = ExtResource( 11 )
+energy = 0.75
+
+[node name="TitleLabel" type="Label" parent="MainMenu/Startgame"]
+margin_left = 399.556
+margin_top = 33.4142
+margin_right = 605.556
+margin_bottom = 163.414
+custom_fonts/font = SubResource( 13 )
+text = "Sprite"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -715,7 +740,7 @@ attenuation = 0.125
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -2
-tile_set = SubResource( 17 )
+tile_set = SubResource( 18 )
 cell_size = Vector2( 32, 32 )
 collision_layer = 7
 collision_mask = 7

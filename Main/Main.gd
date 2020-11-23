@@ -82,7 +82,7 @@ func _process(_delta:float):
 					_Player.player_color = get("_player"+str(x+1)+"_color")
 					_Player.VS = VS
 					if not VS:
-						_Player.position = _playerpositions.get_node("Position0_"+str(x+1)).get_global_transform().origin
+						_Player.position = _playerpositions.get_node("Position9_"+str(x+1)).get_global_transform().origin
 					else:
 						_Player.position = _playerpositions.get_node("PositionVS"+str(VS_level)+"_"+str(x+1)).get_global_transform().origin
 					var _error = _Player.connect("died", self, "_player_died")
@@ -93,7 +93,7 @@ func _process(_delta:float):
 						_Player.health *= 2
 						_Player.maxhealth *= 2
 				if not VS:
-					_camera.position = _camerapositions.get_node("Position11").get_global_transform().origin
+					_camera.position = _camerapositions.get_node("Position10").get_global_transform().origin
 				else:
 					_camera.position = _camerapositions.get_node("PositionVS"+str(VS_level)).get_global_transform().origin
 				_level = 1
@@ -178,6 +178,9 @@ func restart():
 	for enemy in $Gameplay/Enemies.get_children():
 		enemy.queue_free()
 	$Gameplay/NaGaDeMon.health = 5
+	$Gameplay/NaGaDeMon.show()
+	$Gameplay/NaGaDeMon.should_move = false
+	$Gameplay/NaGaDeMon.position = Vector2(3872,1520)
 
 func _chosen_color(color:String, id:String):
 	_set_player_color(color, id)
