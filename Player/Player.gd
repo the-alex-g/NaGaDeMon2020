@@ -1,8 +1,8 @@
 class_name Player
 extends KinematicBody2D
 
-export var minswingspeed := 0.2
-export var maxswingspeed := 5
+export var minswingspeed := 0
+export var maxswingspeed := 0.2
 export var speed := 300.0
 onready var _sprite := $Sprite
 onready var _light := $Light2D
@@ -16,7 +16,7 @@ var maxhealth := 3.0
 var health := 3.0
 var ram := false
 var swingdir := 1
-var acceleration_increment := 0.1
+var acceleration_increment := 0.01
 var swinging := false
 var _light_colors := {"red":Color.red, "yellow":Color.yellow, "blue":Color(0,0.5,1,1), "green":Color.green}
 signal died
@@ -50,19 +50,21 @@ func _physics_process(delta):
 			ram = true
 		if Input.is_joy_button_pressed(int(player_number)-1, 2):
 			new_weapon("Sword", true)
-		var sword_dir := rad2deg(Vector2(Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RX), Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RY)).angle())-270
-		sword.rotation_degrees = sword_dir
-#		if sword_dir == 0:
-#			if _swingspeed > minswingspeed:
-#				_swingspeed -= acceleration_increment
-#		else:
-#			if _swingspeed < maxswingspeed:
-#				_swingspeed += acceleration_increment
-#			if sword_dir > fmod(sword.rotation_degrees, 360):
-#				swingdir = 1
-#			elif sword_dir < fmod(sword.rotation_degrees, 360):
-#				swingdir = -1
-#		sword.rotation_degrees += swingdir*_swingspeed
+		var sword_data := Vector2(Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RX), Input.get_joy_axis(int(player_number)-1, JOY_ANALOG_RY))
+		var sword_dir := rad2deg(sword_data.angle())+90
+		var target_rotation = sword_data.angle() + PI/2
+		var new_angle = _lerp_angle(sword.rotation, target_rotation, _swingspeed)
+		
+		sword.rotation = new_angle
+		
+		
+		if round(sword_dir) == 0:
+			if _swingspeed > minswingspeed:
+				_swingspeed -= acceleration_increment
+			swingdir = 0
+		else:
+			if _swingspeed < maxswingspeed:
+				_swingspeed += acceleration_increment
 		var _error = move_and_collide(velocity.normalized()*delta*speed)
 		_sprite.rotation_degrees += 1
 		_error = $Tween.interpolate_property(_light, "energy", null, health/maxhealth, 0.25)
@@ -119,3 +121,12 @@ func new_weapon(type:String, dropped:bool = false):
 		drope.position = Vector2(self.get_global_transform().origin.x+50, self.get_global_transform().origin.y)
 		emit_signal("dropped_weapon", drope)
 	sword.switch_type(type)
+
+# Adapted from https://godotengine.org/qa/41043/lerping-angle-while-going-trought-shortest-possible-distance
+func _lerp_angle(from:float, to:float, weight:float)->float:
+	return from + _short_angle_dist(from, to) * weight
+#
+func _short_angle_dist(from:float, to:float)->float:
+	var max_angle = PI * 2
+	var difference = fmod(to - from, max_angle)
+	return fmod(2 * difference, max_angle) - difference
