@@ -28,7 +28,7 @@ _global_script_class_icons={
 
 config/name="NaGaDeMon2020"
 run/main_scene="res://Main/Main.tscn"
-config/icon="res://icon.png"
+config/icon="res://Art/Instructor.png"
 
 [display]
 
